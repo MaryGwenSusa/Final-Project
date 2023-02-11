@@ -77,8 +77,7 @@ def houseEnter():
                         trials+=1
                     #alarm? or calling 911
 
-def security(singleOption, askUser):
-    while singleOption == 0:
+def security():
         doors = ['Front Door', 'Back Door']
         #returns a zip object, which is an iterator of tuples where the first item in each passed iterator is paired together, and then the second item in each passed iterator are paired together etc.
         doorCd = dict(zip(doors,code)) 
@@ -94,42 +93,45 @@ def security(singleOption, askUser):
             print('     \033[01m\033[36m2\033[0m -> \033[01mModify back door code\033[0m') #design terminal
             print('     \033[01m\033[36m3\033[0m -> \033[01mModify front and back door code\033[0m')
             time.sleep(3)
-            askUSer = int(input("Choose a number: "))
+            askUser = int(input("Choose a number: "))
             #user validation
-            singleOption+=1
 
-        
-            if singleOption != 0:
-                if askUSer == 1:
-                    speaker.say("Input the new code for front door")
-                    speaker.runAndWait()
-                    newCode = input("> ")
-                    #from the password prog from g11dfgsdgsdg
-                    doorCd["Front Door"] = newCode
-                    
-                elif askUSer == 2:
-                    speaker.say("Input the new code for back door")
-                    speaker.runAndWait()
-                    newCode = input("> ")
-                    #from the password prog from g11dfgsdgsdg
-                    doorCd["Back Door"] = newCode
-                    
-                elif askUSer == 3:
-                    security(singleOption+1, askUSer+1)
-                    security(singleOption+1, askUSer+2)
-
-
-                #else:
-
-                time.sleep(1)
-                speaker.say('Saved!')
+            if askUser == 1:
+                speaker.say("Input the new code for front door")
                 speaker.runAndWait()
-                print('Remember your new door codes:')
-                for key, value in doorCd.items():
-                    print(key + " : " + value)
-                break
+                newCode = input("> ")
+                #from the password prog from g11dfgsdgsdg
+                doorCd["Front Door"] = newCode
+                            
+            elif askUser == 2:
+                speaker.say("Input the new code for back door")
+                speaker.runAndWait()
+                newCode = input("> ")
+                #from the password prog from g11dfgsdgsdg
+                doorCd["Back Door"] = newCode
+                            
+            elif askUser == 3:
+                speaker.say("Input the new code for front door")
+                speaker.runAndWait()
+                newCode = input("> ")
+                doorCd["Front Door"] = newCode
 
+                speaker.say("Input the new code for back door")
+                speaker.runAndWait()
+                newCode = input("> ")
+                doorCd["Back Door"] = newCode
+
+            #else:
+
+            time.sleep(1)
+            speaker.say('Saved!')
+            speaker.runAndWait()
+            print('Remember your new door codes:')
+            for key, value in doorCd.items():
+                print(key + " : " + value)
+                
         #elif 'n' in onSecurity:
+
 
 
 # Driver program
@@ -149,10 +151,7 @@ if __name__ == '__main__': #executes coroutine on the default event loop
     code = ['0p3nd00R', 'b@ckd00R']
 
     houseEnter()
-
-    askUser = 0 
-    singleOption = 0 #initialize for recursion
-    security(singleOption, askUser)
+    security()
     #when inside change/code
     #music?
     #check business?
