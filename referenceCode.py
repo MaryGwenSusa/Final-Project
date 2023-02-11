@@ -38,3 +38,5 @@ while turns > 0:
         print ("Wrong")  
         print ("You have", + turns, 'more guesses' )
  
+        if turns == 0:           
+                print ("You Lose"  )
