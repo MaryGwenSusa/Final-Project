@@ -14,9 +14,14 @@ turns = 10
 #check if the turns are more than zero
 while turns > 0:         
     failed = 0
-    
+
     # for every character in secret_word    
     for char in word:      
         if char in guesses:    
         # print then out the character
             print (char,end=""),
+        
+        else:
+            print ("_",end=""),     
+       
+            failed += 1
