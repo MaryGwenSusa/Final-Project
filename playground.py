@@ -25,12 +25,22 @@ while turns > 0:
     # for every character in code    
     for char in code:
         if char not in attempts:
-            print ("_",end=""), 
+            print("_",end=""), 
             failed += 1
 
     if failed == 0:        
-        print ("\nUnlocking...")
+        print("\nUnlocking...")
         time.sleep(1)
-        print ("Welcome! You may come in.")
+        print("Welcome! You may come in.")
         break
+
+    guess = input("\n") 
+    attempts += guess   
+
+    if guess != code:    
+        turns -= 1        
+        print("Invalid.")  
+        print("You have", + turns, "more attempts")
+        print("Try again.\n", guess)
+
 
