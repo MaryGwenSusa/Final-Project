@@ -1,6 +1,15 @@
 import time
+import pyttsx3
 
-print("This is the front door!")
+speaker = pyttsx3.init() #initialize
+rate = speaker.getProperty('rate')
+speaker.setProperty('rate', 155) #adjusted the speed of reading since its default 200 is too fast
+
+voices = speaker.getProperty('voices')
+speaker.setProperty('voice', voices[1].id) #change voice for female through changing its index since default is male still male index is 0
+
+speaker.say("This is the front door!")
+#speaker.runAndWait()
 time.sleep(1)
 print("Type in your password to unclock the door.")
 time.sleep(0.5)
@@ -20,8 +29,8 @@ while turns > 0:
             failed += 1
 
     if failed == 0:        
-        print ("Unlocking...")
+        print ("\nUnlocking...")
         time.sleep(1)
-        print ("You may come in!")
+        print ("Welcome! You may come in.")
         break
        
