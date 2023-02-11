@@ -10,7 +10,7 @@ voices = speaker.getProperty('voices')
 speaker.setProperty('voice', voices[1].id) #change voice for female through changing its index since default is male still male index is 0
 
 speaker.say("This is the front door!")
-time.sleep(1)
+time.sleep(1) #add delay
 speaker.say("Type in your password to unlock the door.")
 speaker.runAndWait()
 time.sleep(0.5)
@@ -73,11 +73,20 @@ while entering == True:
                     turns = 3
                     pass
 
-                #else
+def security():
+    speaker.say("Do you want to reassess your security?")
+    speaker.runAndWait()
 
-                #user input validations
+    onSecurity = input("Type Y/N \n").lower()
+    # user validation
+    if 'y' in onSecurity:
+        """""   1 -> Modify front door code
+                2 -> Modify back door code"""
+        print(security.__doc__)
+        
+    elif 'n' in onSecurity:
 
-#backdoor
+    
 #when inside change/code
 #music?
 #check business?
