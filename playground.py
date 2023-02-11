@@ -36,28 +36,37 @@ def houseEnter():
                 speaker.runAndWait()
                 print("You have \033[31m{}\033[0m more attempts.".format(turns))
 
-                if turns == 0:           
-                    print("You will have attempts again after 15 mins. If you fail again, the door's alarm will ring.")
-                    #alarm? or calling 911
-                    time.sleep(4)
-                    speaker.say("Would you wait at the front door?")
-                    speaker.runAndWait()
-                    firstFail = input("Type Y/N \n").lower()
-
-                    if 'y' in firstFail:
-                        turns = 3
+                if turns == 0:
+                    if index != 1:     
+                        print("You will have attempts again after 15 mins. If you fail again, the door's alarm will ring.")
                         time.sleep(4)
-                        pass
-                    elif 'n' in firstFail:
-                        index+=1
-                        print("You decided to go through the back door instead.")
-                        speaker.say("This is the back door!")
-                        time.sleep(1)
-                        speaker.say("Type in your password to unlock the door.")
+                        speaker.say("Would you wait at the front door?")
                         speaker.runAndWait()
-                        time.sleep(0.5)
-                        turns = 3
-                        pass
+                        firstFail = input("Type Y/N \n").lower()
+
+                        if 'y' in firstFail:
+                            turns = 3
+                            time.sleep(4)
+                            pass
+                        elif 'n' in firstFail:
+                            print("You decided to go through the back door instead.")
+                            speaker.say("This is the back door!")
+                            time.sleep(1)
+                            speaker.say("Type in your password to unlock the door.")
+                            speaker.runAndWait()
+                            time.sleep(0.5)
+                            turns = 3
+                            pass
+
+                    elif index == 1:
+                        speaker.say("Dialing 911.. Attempt of breaking in...")
+                        speaker.runAndWait()
+                        time.sleep(4)
+                        exit()
+
+                    else:
+                        index+=1
+                    #alarm? or calling 911
 
 def security():
     doors = ['Front Door', 'Back Door']
@@ -108,8 +117,6 @@ if __name__ == '__main__': #executes coroutine on the default event loop
     speaker.runAndWait()
     time.sleep(0.5)
     code = ['0p3nd00R', 'b@ckd00R']
-
-
 
     houseEnter()
     security()
