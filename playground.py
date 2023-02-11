@@ -20,8 +20,9 @@ attempts = ""
 turns = 3
 
 index = 0
+entering = True
 
-while index:
+while entering == True:
     #check if the turns are more than zero
     while turns > 0:         
         failed = 0
@@ -38,8 +39,8 @@ while index:
             speaker.say("Welcome! You may come in.")
             speaker.runAndWait()
             break
+        entering = False
             
-
         guess = input("\n") 
         attempts += guess
 
@@ -59,6 +60,7 @@ while index:
 
                 if 'y' in firstFail:
                     turns = 3
+                    time.sleep(4)
                     pass
                 elif 'n' in firstFail:
                     index+=1
@@ -71,6 +73,9 @@ while index:
                     turns = 3
                     pass
 
+                #else
+
+                #user input validations
 
 #backdoor
 #when inside change/code
