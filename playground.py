@@ -1,11 +1,11 @@
 import time
 import pyttsx3
 from termcolor import cprint
+from python_play.player import play_it
 
 def houseEnter():
     attempts = ""
     turns = 3
-
     index = 0
     entering = True
     while entering == True:
@@ -58,7 +58,10 @@ def houseEnter():
                             turns = 3
                             pass
 
-                    elif index == 1:
+                    if index == 1:
+                        play_it('alarm.mp3')
+                        
+                        time.sleep(4)
                         speaker.say("Dialing 911.. Attempt of breaking in...")
                         speaker.runAndWait()
                         time.sleep(4)
