@@ -74,19 +74,36 @@ while entering == True:
                     pass
 
 def security():
+    doors = ['Front Door', 'Back Door']
+    #returns a zip object, which is an iterator of tuples where the first item in each passed iterator is paired together, and then the second item in each passed iterator are paired together etc.
+    doorCd = dict(zip(code,doors)) 
     speaker.say("Do you want to reassess your security?")
     speaker.runAndWait()
 
     onSecurity = input("Type Y/N \n").lower()
-    # user validation
+    # user validationhgfhfj
     if 'y' in onSecurity:
+        speaker.say("What do you want to do?")
+        speaker.runAndWait()
         """""   1 -> Modify front door code
-                2 -> Modify back door code"""
+                2 -> Modify back door code""" #design terminal
         print(security.__doc__)
-        
-    elif 'n' in onSecurity:
+        time.sleep(3)
+        askUSer = int(input("Choose a number: "))
+        #user validation
+        if askUSer == 1:
+            speaker.say("Input the new code for front door")
+            newCode = input("> ")
+            #from the password prog from g11dfgsdgsdg
+            doorCd["Front Door"] = newCode
+            for key, value in doorCd.items():
+                print(key + ":" + value)
 
-    
+        
+        
+    #elif 'n' in onSecurity:
+
+security()
 #when inside change/code
 #music?
 #check business?
