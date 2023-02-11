@@ -28,4 +28,9 @@ while turns > 0:
             print ("_",end=""), 
             failed += 1
 
+    if failed == 0:        
+        print ("\nUnlocking...")
+        time.sleep(1)
+        print ("Welcome! You may come in.")
+        break
 
