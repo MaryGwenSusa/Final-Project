@@ -13,9 +13,15 @@ turns = 3
 while turns > 0:         
     failed = 0
 
-    # for every character in secret_word    
+    # for every character in code    
     for char in code:
         print ("_",end=""),     
         if guesses != code:    
             failed += 1
 
+    if failed == 0:        
+        print ("Unlocking...")
+        time.sleep(1)
+        print ("You may come in!")
+        break
+       
