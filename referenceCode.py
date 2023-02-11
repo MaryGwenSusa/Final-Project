@@ -13,5 +13,5 @@ turns = 10
 
 #check if the turns are more than zero
 while turns > 0:         
-
-    failed = 0  
+    failed = 0
+   
