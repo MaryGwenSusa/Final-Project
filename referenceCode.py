@@ -25,3 +25,7 @@ while turns > 0:
             print ("_",end=""),     
        
             failed += 1
+
+    if failed == 0:        
+            print ("You won")
+            break
