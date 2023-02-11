@@ -27,5 +27,14 @@ while turns > 0:
             failed += 1
 
     if failed == 0:        
-            print ("You won")
-            break
+        print ("You won")
+        break
+       
+    guess = input("guess a character:") 
+    guesses += guess                    
+
+    if guess not in word:  
+        turns -= 1        
+        print ("Wrong")  
+        print ("You have", + turns, 'more guesses' )
+ 
