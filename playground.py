@@ -130,7 +130,7 @@ def security():
             #else:
 
             time.sleep(1)
-            speaker.say('Saved!')
+            speaker.say('Password Valid. Saved!')
             speaker.runAndWait()
             print('Remember your new door codes:')
             for key, value in doorCd.items():
@@ -139,19 +139,23 @@ def security():
         #elif 'n' in onSecurity:
 
 def validPassword():
-    """Evaluate if the input is valid as a password.
-
-    These are the conditions need to be met:
+    """These are the conditions need to be met:
     if its greater than 5 characters;
     if it has at least one lowercase letter;
     if it has at least one uppercase letter; and
     if it has at least one numeral; 
     """
+    speaker.say("Evaluate if the input is valid as a password")
+    speaker.runAndWait()
+    
     inputValue = True
     if inputValue == True:
+        time.sleep(2)
         password = str(input('Input: '))
-        if not len(password): # JSHKSDF INPUT VALIDATION??
-            print("Empty string was entered!")
+        if not len(password): # JSHKSDF INPUT VALIDATION??hghgj
+            time.sleep(1)
+            speaker.say("Empty string was entered!")
+            speaker.runAndWait()
             inputValue = False
         if len(password) < 5:
             print('The length of password should be greater than 5 characters.')    
@@ -167,10 +171,12 @@ def validPassword():
             inputValue = False
 
         if inputValue == True:
-            return password
+            return str(password)
 
         elif inputValue == False:
-            print('Invalid. Try again.')
+            time.sleep(2)
+            speaker.say('Invalid. Try again.')
+            speaker.runAndWait()
             validPassword()
 
 
