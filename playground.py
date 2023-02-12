@@ -83,62 +83,65 @@ def security():
         doorCd = dict(zip(doors,code)) 
         speaker.say("Do you want to reassess your security?")
         speaker.runAndWait()
-
-        onSecurity = input("\nType Y/N \n").lower()
-        # user validationhgfhfj
-        if 'y' in onSecurity:
-            speaker.say("What do you want to do?")
-            speaker.runAndWait()
-            print('     \033[01m\033[36m1\033[0m -> \033[01mModify front door code\033[0m')
-            print('     \033[01m\033[36m2\033[0m -> \033[01mModify back door code\033[0m') #design terminalfhgf
-            print('     \033[01m\033[36m3\033[0m -> \033[01mModify front and back door code\033[0m')
-            time.sleep(3)
-            askUser = int(input("Choose a number: "))
-            #user validation
-
-            if askUser == 1:
-                speaker.say("Input the new code for front door")
+        while True:
+            onSecurity = input("\nType Y/N \n").lower()           
+            # user validationhgfhfj
+            if 'y' in onSecurity:
+                speaker.say("What do you want to do?")
                 speaker.runAndWait()
-                print(validPassword.__doc__)
-                newCode = validPassword()
-                #from the password prog from g11dfgsdgsdg
-                doorCd["Front Door"] = newCode
-                            
-            elif askUser == 2:
-                speaker.say("Input the new code for back door")
+                print('     \033[01m\033[36m1\033[0m -> \033[01mModify front door code\033[0m')
+                print('     \033[01m\033[36m2\033[0m -> \033[01mModify back door code\033[0m') #design terminalfhgf
+                print('     \033[01m\033[36m3\033[0m -> \033[01mModify front and back door code\033[0m')
+                time.sleep(3)
+                askUser = int(input("Choose a number: "))
+                #user validation
+
+                if askUser == 1:
+                    speaker.say("Input the new code for front door")
+                    speaker.runAndWait()
+                    print(validPassword.__doc__)
+                    newCode = validPassword()
+                    #from the password prog from g11dfgsdgsdg
+                    doorCd["Front Door"] = newCode
+                                
+                elif askUser == 2:
+                    speaker.say("Input the new code for back door")
+                    speaker.runAndWait()
+                    print(validPassword.__doc__)
+                    newCode = validPassword()
+                    #from the password prog from g11dfgsdgsdg
+                    doorCd["Back Door"] = newCode
+                                
+                elif askUser == 3:
+                    speaker.say("Input the new code for front door")
+                    speaker.runAndWait()
+                    
+                    print(validPassword.__doc__)
+                    newCode = validPassword()
+                    doorCd["Front Door"] = newCode
+
+                    speaker.say("Input the new code for back door")
+                    speaker.runAndWait()
+
+                    print(validPassword.__doc__)
+                    newCode = validPassword()
+                    doorCd["Back Door"] = newCode
+
+                    #shud i add pa if magsame si codes for user to rethink 
+
+                #else:
+
+                time.sleep(1)
+                speaker.say('Password Valid. Saved!')
                 speaker.runAndWait()
-                print(validPassword.__doc__)
-                newCode = validPassword()
-                #from the password prog from g11dfgsdgsdg
-                doorCd["Back Door"] = newCode
-                            
-            elif askUser == 3:
-                speaker.say("Input the new code for front door")
-                speaker.runAndWait()
-                
-                print(validPassword.__doc__)
-                newCode = validPassword()
-                doorCd["Front Door"] = newCode
+                print('Remember your new door codes:')
+                for key, value in doorCd.items():
+                    print(key + " : " + value)
+                break
+                    
+            #elif 'n' in onSecurity:
 
-                speaker.say("Input the new code for back door")
-                speaker.runAndWait()
-
-                print(validPassword.__doc__)
-                newCode = validPassword()
-                doorCd["Back Door"] = newCode
-
-            #else:
-
-            time.sleep(1)
-            speaker.say('Password Valid. Saved!')
-            speaker.runAndWait()
-            print('Remember your new door codes:')
-            for key, value in doorCd.items():
-                print(key + " : " + value)
-                
-        #elif 'n' in onSecurity:
-
-def validPassword():
+def validPassword(): #designn temrinasdasds
     """These are the conditions need to be met:
     if its greater than 5 characters;
     if it has at least one lowercase letter;
@@ -198,6 +201,7 @@ if __name__ == '__main__': #executes coroutine on the default event loop
 
     houseEnter()
     security()
+
     #when inside change/code
     #music?
     #check business?
