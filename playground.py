@@ -144,6 +144,12 @@ def validPassword():
     inputValue = True
     if inputValue == True:
         password = input('Input: ')
+        if not len(password): # JSHKSDF INPUT VALIDATION??
+            print("Empty string was entered!")
+            inputValue = False
+        if len(password) < 5:
+            print('The length of password should be greater than 5 characters.')    
+            inputValue = False
 
 # Driver program
 if __name__ == '__main__': #executes coroutine on the default event loop
