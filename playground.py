@@ -163,6 +163,10 @@ def validPassword():
         if inputValue == True:
             return password
 
+        elif inputValue == False:
+            print('Invalid. Try again.')
+            validPassword()
+
 
 # Driver program
 if __name__ == '__main__': #executes coroutine on the default event loop
