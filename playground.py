@@ -160,6 +160,10 @@ def validPassword():
             print('The password should have at least one numeral.')
             inputValue = False
 
+        if inputValue == True:
+            return password
+
+
 # Driver program
 if __name__ == '__main__': #executes coroutine on the default event loop
     speaker = pyttsx3.init() #initialize
