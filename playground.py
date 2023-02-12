@@ -150,6 +150,15 @@ def validPassword():
         if len(password) < 5:
             print('The length of password should be greater than 5 characters.')    
             inputValue = False
+        if not any(char.islower() for char in password): # determines if there is no letter in lowercase in 
+            print('The password should have at least one lowercase letter.')  
+            inputValue = False
+        if not any(char.isupper() for char in password): # determines if there is no letter in uppercase 
+            print('The password should have at least one uppercase letter.')  
+            inputValue = False
+        if not any(char.isdigit() for char in password): # determines if there is no digit 
+            print('The password should have at least one numeral.')
+            inputValue = False
 
 # Driver program
 if __name__ == '__main__': #executes coroutine on the default event loop
