@@ -90,7 +90,7 @@ def security():
             speaker.say("What do you want to do?")
             speaker.runAndWait()
             print('     \033[01m\033[36m1\033[0m -> \033[01mModify front door code\033[0m')
-            print('     \033[01m\033[36m2\033[0m -> \033[01mModify back door code\033[0m') #design terminal
+            print('     \033[01m\033[36m2\033[0m -> \033[01mModify back door code\033[0m') #design terminalfhgf
             print('     \033[01m\033[36m3\033[0m -> \033[01mModify front and back door code\033[0m')
             time.sleep(3)
             askUser = int(input("Choose a number: "))
@@ -132,7 +132,18 @@ def security():
                 
         #elif 'n' in onSecurity:
 
+def validPassword():
+    """Evaluate if the input is valid as a password.
 
+    These are the conditions need to be met:
+    if its greater than 5 characters;
+    if it has at least one lowercase letter;
+    if it has at least one uppercase letter; and
+    if it has at least one numeral; 
+    """
+    inputValue = True
+    if inputValue == True:
+        password = input('Input: ')
 
 # Driver program
 if __name__ == '__main__': #executes coroutine on the default event loop
