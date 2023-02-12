@@ -99,26 +99,32 @@ def security():
             if askUser == 1:
                 speaker.say("Input the new code for front door")
                 speaker.runAndWait()
-                newCode = input("> ")
+                print(validPassword.__doc__)
+                newCode = validPassword()
                 #from the password prog from g11dfgsdgsdg
                 doorCd["Front Door"] = newCode
                             
             elif askUser == 2:
                 speaker.say("Input the new code for back door")
                 speaker.runAndWait()
-                newCode = input("> ")
+                print(validPassword.__doc__)
+                newCode = validPassword()
                 #from the password prog from g11dfgsdgsdg
                 doorCd["Back Door"] = newCode
                             
             elif askUser == 3:
                 speaker.say("Input the new code for front door")
                 speaker.runAndWait()
-                newCode = input("> ")
+                
+                print(validPassword.__doc__)
+                newCode = validPassword()
                 doorCd["Front Door"] = newCode
 
                 speaker.say("Input the new code for back door")
                 speaker.runAndWait()
-                newCode = input("> ")
+
+                print(validPassword.__doc__)
+                newCode = validPassword()
                 doorCd["Back Door"] = newCode
 
             #else:
@@ -143,7 +149,7 @@ def validPassword():
     """
     inputValue = True
     if inputValue == True:
-        password = input('Input: ')
+        password = str(input('Input: '))
         if not len(password): # JSHKSDF INPUT VALIDATION??
             print("Empty string was entered!")
             inputValue = False
