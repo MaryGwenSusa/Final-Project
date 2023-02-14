@@ -83,34 +83,58 @@ def security():
         doorCd = dict(zip(doors,code)) 
         speaker.say("Do you want to reassess your security?")
         speaker.runAndWait()
+        errorMenu = False
         while True:
-            onSecurity = input("\nType Y/N \n").lower()           
-            # user validationhgfhfj
+            if errorMenu == False:
+                onSecurity = input("\nType Y/N \n").lower()           
+            elif errorMenu == True:
+                onSecurity = 'y'
+
             if 'y' in onSecurity:
                 speaker.say("What do you want to do?")
                 speaker.runAndWait()
-                print('     \033[01m\033[36m1\033[0m -> \033[01mModify front door code\033[0m')
+                
+                print('\n     \033[01m\033[36m1\033[0m -> \033[01mModify front door code\033[0m')
                 print('     \033[01m\033[36m2\033[0m -> \033[01mModify back door code\033[0m') #design terminalfhgf
                 print('     \033[01m\033[36m3\033[0m -> \033[01mModify front and back door code\033[0m')
-                time.sleep(3)
-                askUser = int(input("Choose a number: "))
-                #user validation
+                # add search
+                time.sleep(2)
+                try:
+                    askUser = int(input("Choose a number: "))
+                # ValueError is an exception that occurs when a function receives an argument of the correct data type but an inappropriate value.
+                # The TypeError object represents an error when an operation could not be performed, typically (but not exclusively) when a value is not of the expected type.
+                except ValueError:
+                    speaker.say('That was confusing. Please clarify.')
+                    speaker.runAndWait()
+                    time.sleep(1)
+                    errorMenu = True
+                    continue
 
                 if askUser == 1:
                     speaker.say("Input the new code for front door")
                     speaker.runAndWait()
                     print(validPassword.__doc__)
                     newCode = validPassword()
-                    #from the password prog from g11dfgsdgsdg
-                    doorCd["Front Door"] = newCode
+                    try:
+                        doorCd["Front Door"] = newCode
+                    except TypeError:
+                        speaker.say('There seems to be a problem on my system. I apologize. Please try again.')
+                        speaker.runAndWait()
+                        newCode = validPassword()
+                        doorCd["Front Door"] = newCode
                                 
                 elif askUser == 2:
                     speaker.say("Input the new code for back door")
                     speaker.runAndWait()
                     print(validPassword.__doc__)
                     newCode = validPassword()
-                    #from the password prog from g11dfgsdgsdg
-                    doorCd["Back Door"] = newCode
+                    try: 
+                        doorCd["Front Door"] = newCode
+                    except TypeError:
+                        speaker.say('There seems to be a problem on my system. I apologize. Please try again.')
+                        speaker.runAndWait()
+                        newCode = validPassword()
+                        doorCd["Front Door"] = newCode
                                 
                 elif askUser == 3:
                     speaker.say("Input the new code for front door")
@@ -118,18 +142,39 @@ def security():
                     
                     print(validPassword.__doc__)
                     newCode = validPassword()
-                    doorCd["Front Door"] = newCode
+                    try: 
+                        doorCd["Front Door"] = newCode
+                    except TypeError:
+                        speaker.say('There seems to be a problem on my system. I apologize. Please try again.')
+                        speaker.runAndWait()
+                        newCode = validPassword()
+                        doorCd["Front Door"] = newCode
 
                     speaker.say("Input the new code for back door")
                     speaker.runAndWait()
 
                     print(validPassword.__doc__)
                     newCode = validPassword()
-                    doorCd["Back Door"] = newCode
+                    try:
+                        doorCd["Back Door"] = newCode
+                    except TypeError:
+                        speaker.say('There seems to be a problem on my system. I apologize. Please try again.')
+                        speaker.runAndWait()
+                        newCode = validPassword()
+                        doorCd["Back Door"] = newCode
+
+                else:
+                    speaker.say('Please choose among the available options.')
+                    speaker.runAndWait()
+                    time.sleep(1)
+                    errorMenu = True
+                    continue
+                
+
+
+
 
                     #shud i add pa if magsame si codes for user to rethink 
-
-                #else:
 
                 time.sleep(1)
                 speaker.say('Password Valid. Saved!')
@@ -138,8 +183,16 @@ def security():
                 for key, value in doorCd.items():
                     print(key + " : " + value)
                 break
+        
                     
             #elif 'n' in onSecurity:
+
+            else:
+                speaker.say('That was confusing. Please clarify.')
+                speaker.runAndWait()
+                time.sleep(1)
+                continue
+
 
 def validPassword(): #designn temrinasdasds
     """These are the conditions need to be met:
