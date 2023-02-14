@@ -84,6 +84,7 @@ def security():
         speaker.say("Do you want to reassess your security?")
         speaker.runAndWait()
         errorMenu = False
+        justView = False
         while True:
             if errorMenu == False:
                 onSecurity = input("\nType Y/N \n").lower()           
@@ -93,14 +94,14 @@ def security():
             if 'y' in onSecurity:
                 speaker.say("What do you want to do?")
                 speaker.runAndWait()
-                
                 print('\n     \033[01m\033[36m1\033[0m -> \033[01mModify front door code\033[0m')
                 print('     \033[01m\033[36m2\033[0m -> \033[01mModify back door code\033[0m') #design terminalfhgf
                 print('     \033[01m\033[36m3\033[0m -> \033[01mModify front and back door code\033[0m')
-                # add search
+                print('     \033[01m\033[36m4\033[0m -> \033[01mView the codes\033[0m')
+
                 time.sleep(2)
                 try:
-                    askUser = int(input("Choose a number: "))
+                    askUser = int(input("\nChoose a number: "))
                 # ValueError is an exception that occurs when a function receives an argument of the correct data type but an inappropriate value.
                 # The TypeError object represents an error when an operation could not be performed, typically (but not exclusively) when a value is not of the expected type.
                 except ValueError:
@@ -108,6 +109,7 @@ def security():
                     speaker.runAndWait()
                     time.sleep(1)
                     errorMenu = True
+                    
                     continue
 
                 if askUser == 1:
@@ -162,6 +164,10 @@ def security():
                         speaker.runAndWait()
                         newCode = validPassword()
                         doorCd["Back Door"] = newCode
+                
+                elif askUser == 4:
+                    justView = True
+                    pass
 
                 else:
                     speaker.say('Please choose among the available options.')
@@ -175,11 +181,11 @@ def security():
 
 
                     #shud i add pa if magsame si codes for user to rethink 
-
-                time.sleep(1)
-                speaker.say('Password Valid. Saved!')
-                speaker.runAndWait()
-                print('Remember your new door codes:')
+                if justView == False:
+                    time.sleep(1)
+                    speaker.say('Password Valid. Saved!')
+                    speaker.runAndWait()
+                print('\nRemember your door codes:')
                 for key, value in doorCd.items():
                     print(key + " : " + value)
                 break
