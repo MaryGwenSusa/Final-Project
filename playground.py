@@ -21,36 +21,36 @@ def houseEnter():
                     failed += 1
 
             if failed == 0:        
-                cprint("\nUnlocking...", "green")
+                cprint("\n\033[0m\033[3m\033[32mUnlocking...\033[0m")
                 time.sleep(1)
                 speaker.say("Welcome! You may come in.")
                 speaker.runAndWait()
                 break
             entering = False
                 
-            guess = input("\n") 
+            guess = input("\n\033[01m\033[92m") 
             attempts += guess
 
             if guess != code[index]:    
                 turns -= 1        
                 speaker.say("Invalid.")
                 speaker.runAndWait()
-                print("You have \033[31m{}\033[0m more attempts.".format(turns))
+                print("\033[0mYou have \033[31m{}\033[0m more attempts.".format(turns))
 
                 if turns == 0:
                     if trials != 1:     
-                        print("You will have attempts again after 15 mins. If you fail again, the door's alarm will ring.")
+                        cprint("You will have attempts again after 15 mins. If you fail again, the door's alarm will ring.", "red")
                         time.sleep(4)
                         speaker.say("Would you wait at the front door?")
                         speaker.runAndWait()
-                        firstFail = input("Type Y/N \n").lower()
+                        firstFail = input("Type Y/N \033[96m\n").lower()
 
                         if 'y' in firstFail:
                             turns = 3
                             time.sleep(4)
                             pass
                         elif 'n' in firstFail:
-                            print("You decided to go through the back door instead.")
+                            print("\033[0mYou decided to go through the \033[04mback door\033[0m instead.")
                             speaker.say("This is the back door!")
                             time.sleep(1)
                             speaker.say("Type in your password to unlock the door.")
@@ -87,21 +87,21 @@ def security():
         justView = False
         while True:
             if errorMenu == False:
-                onSecurity = input("\nType Y/N \n").lower()           
+                onSecurity = input("Type Y/N \033[96m\n").lower()    #reset the input color        
             elif errorMenu == True:
                 onSecurity = 'y'
 
             if 'y' in onSecurity:
                 speaker.say("What do you want to do?")
                 speaker.runAndWait()
-                print('\n     \033[01m\033[36m1\033[0m -> \033[01mModify front door code\033[0m')
-                print('     \033[01m\033[36m2\033[0m -> \033[01mModify back door code\033[0m') #design terminalfhgf
-                print('     \033[01m\033[36m3\033[0m -> \033[01mModify front and back door code\033[0m')
-                print('     \033[01m\033[36m4\033[0m -> \033[01mView the codes\033[0m')
+                print('\n     \033[0m\033[01m\033[36m1\033[0m -> \033[03mModify front door code\033[0m')
+                print('     \033[01m\033[36m2\033[0m -> \033[03mModify back door code\033[0m') 
+                print('     \033[01m\033[36m3\033[0m -> \033[03mModify front and back door code\033[0m')
+                print('     \033[01m\033[36m4\033[0m -> \033[03mView the codes\033[0m')
 
                 time.sleep(2)
                 try:
-                    askUser = int(input("\nChoose a number: "))
+                    askUser = int(input("\n\033[0mChoose a number:\033[96m "))
                 # ValueError is an exception that occurs when a function receives an argument of the correct data type but an inappropriate value.
                 # The TypeError object represents an error when an operation could not be performed, typically (but not exclusively) when a value is not of the expected type.
                 except ValueError:
@@ -185,16 +185,16 @@ def security():
                     time.sleep(1)
                     speaker.say('Password Valid. Saved!')
                     speaker.runAndWait()
-                print('\nRemember your door codes:')
+                print('\n\033[0mRemember your door codes:')
                 for key, value in doorCd.items():
-                    print(key + " : " + value)
+                    print("\033[01m\033[34m{}\033[0m : {}".format(key, str(value)))
                 
                 if justView == True:
                     speaker.say('Do you have second thoughts on your current codes?')
                     speaker.runAndWait()
                     time.sleep(1)
                     
-                    doubts = input('Type Y/N\n').lower()
+                    doubts = input('Type Y/N\n\033[96m').lower() #reset terminal color
 
                     if 'y' in doubts:
                         errorMenu = True
@@ -221,11 +221,11 @@ def security():
 
 
 def validPassword(): #designn temrinasdasds
-    """These are the conditions need to be met:
-    if its greater than 5 characters;
-    if it has at least one lowercase letter;
-    if it has at least one uppercase letter; and
-    if it has at least one numeral; 
+    """\033[0mThese are the conditions need to be met:
+    if its \033[33mgreater than 5 characters\033[0m;
+    if it has at least \033[33mone lowercase letter\033[0m;
+    if it has at least \033[33mone uppercase letter\033[0m; and
+    if it has at least \033[33mone numeral\033[0m; 
     """
     speaker.say("Evaluate if the input is valid as a password")
     speaker.runAndWait()
@@ -233,23 +233,23 @@ def validPassword(): #designn temrinasdasds
     inputValue = True
     if inputValue == True:
         time.sleep(2)
-        password = str(input('Input: '))
+        password = str(input('\033[0mInput:\033[36m '))
         if not len(password): # JSHKSDF INPUT VALIDATION??hghgj
             time.sleep(1)
             speaker.say("Empty string was entered!")
             speaker.runAndWait()
             inputValue = False
         if len(password) < 5:
-            print('The length of password should be greater than 5 characters.')    
+            print('\033[0mThe length of password should be \033[33mgreater than 5 characters\033[0m.')    
             inputValue = False
         if not any(char.islower() for char in password): # determines if there is no letter in lowercase in 
-            print('The password should have at least one lowercase letter.')  
+            print('\033[0mThe password should have at least \033[33mone lowercase letter\033[0m.')  
             inputValue = False
         if not any(char.isupper() for char in password): # determines if there is no letter in uppercase 
-            print('The password should have at least one uppercase letter.')  
+            print('\033[0mThe password should have at least \033[33mone uppercase letter\033[0m.')  
             inputValue = False
         if not any(char.isdigit() for char in password): # determines if there is no digit 
-            print('The password should have at least one numeral.')
+            print('\033[0mThe password should have at least \033[33mone numeral\033[0m.')
             inputValue = False
 
         if inputValue == True:
