@@ -60,3 +60,28 @@ songs = {
         'Country': 'International',
     }
 }
+
+# ask user if want some tunes
+# need an initial list/array?
+
+    # show lists: according to artist, song
+    # shuffle based on year (actually arranging them)
+    # group based on: genre, country
+
+#when they are stored - create random index? based on song len 
+#                       - get song of the index
+# show that song playing with options of next or backwward or quit
+#               show the next/or before song
+# or quit
+
+#del
+#append
+
+def header():
+    title = "          VINYL PLAYER          "
+    print("=" *  33) # created a header design
+    print(title)
+    print("=" * 33)
+
+
+header()
