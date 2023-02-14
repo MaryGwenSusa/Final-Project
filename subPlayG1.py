@@ -86,13 +86,25 @@ def header():
 
 
 header()
-for key in songs.keys():
-    for value in songs[key]['Artist']:
-        print('>', key, 'by', value)
 
-people = {1: {'name': 'John', 'age': '27', 'sex': 'Male'},
-          2: {'name': 'Marie', 'age': '22', 'sex': 'Female'}}
 
-print(people[1]['name'])
-print(people[1]['age'])
-print(people[1]['sex'])
+for songtl, songInfo in songs.items():
+    print(">", songtl, 'by', songInfo['Artist'])
+
+
+def artists():
+    title = "          ARTISTS         "
+    print("=" *  33) # created a header design
+    print(title)
+    print("=" * 33)
+
+
+
+header()
+
+for songtl, songInfo in songs.items():
+    print(">", songtl, 'by', songInfo['Artist'])
+
+
+    
+
