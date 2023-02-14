@@ -83,13 +83,13 @@ def header():
     print(title)
     print("=" * 33)
 
-
+    for songtl, songInfo in songs.items():
+        print(">", songtl, 'by', songInfo['Artist'])
 
 header()
 
 
-for songtl, songInfo in songs.items():
-    print(">", songtl, 'by', songInfo['Artist'])
+
 
 
 def artists():
@@ -98,12 +98,35 @@ def artists():
     print(title)
     print("=" * 33)
 
+    for songInfo in songs.values():
+        print(">", songInfo['Artist'])
+
+artists()
+
+def genre():
+    title = "          GENRES         "
+    print("=" *  33) # created a header design
+    print(title)
+    print("=" * 33)
+    songGenre = []
+    for songInfo in songs.values():
+        songGenre = songInfo['Genre']
+    
+    print(songGenre)
+
+genre()
 
 
-header()
+def year():
+    title = "          YEAR         "
+    print("=" *  33) # created a header design
+    print(title)
+    print("=" * 33)
 
-for songtl, songInfo in songs.items():
-    print(">", songtl, 'by', songInfo['Artist'])
+    for songInfo in songs.values():
+        print(">", songInfo['Year'])
+
+
 
 
     
