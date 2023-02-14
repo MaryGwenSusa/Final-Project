@@ -188,6 +188,26 @@ def security():
                 print('\nRemember your door codes:')
                 for key, value in doorCd.items():
                     print(key + " : " + value)
+                
+                if justView == True:
+                    speaker.say('Do you have second thoughts on your current codes?')
+                    speaker.runAndWait()
+                    time.sleep(1)
+                    
+                    doubts = input('Type Y/N\n').lower()
+
+                    if 'y' in doubts:
+                        errorMenu = True
+                        continue
+                    elif 'n' in doubts:
+                        break
+                        
+                    else:
+                        yesNo = ['y', 'n']
+                        if not (yesNo[0] in doubts or yesNo[1] in doubts):
+                            errorMenu = True
+                            continue
+                                                     
                 break
         
                     
