@@ -88,15 +88,7 @@ voices = speaker.getProperty('voices')
 speaker.setProperty('voice', voices[1].id) #change voice for female through changing its index since default is male still male index is 0
 
 
-class Queue:
-    def __init__(self):
-        self._elements = deque()
-
-    def enqueue(self, element):
-        self._elements.append(element)
-
-    def dequeue(self):
-        return self._elements.popleft()
+#.popleft()
 
 def header():
     title = "          VINYL PLAYER          "
@@ -134,13 +126,31 @@ print('     2 -> Dive into subplaylist') #genre, local international
 songMix = int(input("> "))
 if songMix == 1:
     print('Shuffling...')
-    songYrs = deque()
-    for songInfo in songs.values():
-        songYrs.append(songInfo['Year'])
-    nodups = list(dict.fromkeys(songYrs)) # fromkeys() is a built-in function that generates a dictionary from the keys you have specified.
-    bubbleSort(nodups)
-    print(nodups)
+    songYrs = []
+
     
+    #for songInfo in songs.values():
+        #songYrs.append(songInfo['Year'])
+    #nodups = list(dict.fromkeys(songYrs)) # fromkeys() is a built-in function that generates a dictionary from the keys you have specified.
+    #bubbleSort(nodups)
+    #for songtl, songInfo in songs.items():
+        #if songInfo['Year']: #acc useless
+            #for e in nodups:
+                #if songInfo['Year'] != e:
+                    #again = e
+                #if s
+                 #songYrs.popleft()
+                  #songYrs.append(songtl)
+
+    for songtl, songInfo in songs.items():
+        print("🎶", songtl, ':', songInfo['Year'])
+
+    for new in songYrs:
+        print('Now Playing', new)
+        
+
+    
+
     #songYrs = deque()
     #for songInfo in songs.values():
      #   songYrs.append(songInfo['Year'])
