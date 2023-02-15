@@ -1,3 +1,6 @@
+import pyttsx3
+from collections import deque
+
 songs = {
     "If I Had to Write a Song About You" : {
         'Artist': 'Aaron Taylor',
@@ -77,6 +80,24 @@ songs = {
 #del
 #append
 
+speaker = pyttsx3.init() #initialize
+rate = speaker.getProperty('rate')
+speaker.setProperty('rate', 155) #adjusted the speed of reading since its default 200 is too fast
+
+voices = speaker.getProperty('voices')
+speaker.setProperty('voice', voices[1].id) #change voice for female through changing its index since default is male still male index is 0
+
+
+class Queue:
+    def __init__(self):
+        self._elements = deque()
+
+    def enqueue(self, element):
+        self._elements.append(element)
+
+    def dequeue(self):
+        return self._elements.popleft()
+
 def header():
     title = "          VINYL PLAYER          "
     print("=" *  33) # created a header design
@@ -86,24 +107,40 @@ def header():
     for songtl, songInfo in songs.items():
         print(">", songtl, 'by', songInfo['Artist'])
 
+
+
+
 header()
 
-
-
-
-
-def artists():
-    title = "          ARTISTS         "
-    print("=" *  33) # created a header design
-    print(title)
-    print("=" * 33)
-
+speaker.say("What do you want to do?")
+speaker.runAndWait()
+print('\n     1 -> Play All') #shuffle, use year, or provide random index
+print('     2 -> Dive into subplaylist') #genre, local international
+songMix = int(input("> "))
+if songMix == 1:
+    print('Shuffling...')
+    songYrs = deque()
     for songInfo in songs.values():
-        print(">", songInfo['Artist'])
+        songYrs.append(songInfo['Year'])
+    print(songYrs)
 
-artists()
+
+
+#def artists():
+ #   title = "          ARTISTS         "
+  #  print("=" *  33) # created a header design
+   # print(title)
+    #print("=" * 33)
+
+    #for songInfo in songs.values():
+     #   print(">", songInfo['Artist'])
+
+#artists()
 
 def genre():
+    # create subplaylist?
+    # what genre are you in for
+    # want some local tunes or international artists
     title = "          GENRES         "
     print("=" *  33) # created a header design
     print(title)
@@ -123,9 +160,7 @@ def year():
     print(title)
     print("=" * 33)
 
-    for songInfo in songs.values():
-        print(">", songInfo['Year'])
-
+    
 
 
 
