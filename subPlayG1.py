@@ -105,10 +105,25 @@ def header():
     print("=" * 33)
 
     for songtl, songInfo in songs.items():
-        print(">", songtl, 'by', songInfo['Artist'])
+        print("🎶", songtl, 'by', songInfo['Artist'])
 
 
+def bubbleSort(num):
+    """using the argument for the range parameters so the number of the elements in the list can be easily changed and considering the 0 index value by '-1'
+    plus since the last comparison between the last and second to the last position will satisfy the order already"""
+    for i in range(len(num)-1, 0, -1): 
+        for j in range(i):
+            """this time i will be the last element index (since the step is negative); for this reason, the unsorted range will be lessening upto 0 index to 1 
+            index elements unlike in Selection Sort where its last unsorted range is the last index element and its adjacent
+            
+            - to sort in descending order simply change the '<' to '>' then the lesser value will be swapped towards the right"""
+            if num[j] > num[j+1]: # will compare adjacent elements (this will implement putting the biggest quantity value at the last index first upon ordering)
+                # temp = num[j]
+                # num[j] = num[j+1]
+                # num[j+1] = temp
+                num[j], num[j+1] = num[j+1], num[j] # From Nikita Sharma's comment on the yt vid, python allows easy swapping without a third variable
 
+                
 
 header()
 
@@ -122,9 +137,16 @@ if songMix == 1:
     songYrs = deque()
     for songInfo in songs.values():
         songYrs.append(songInfo['Year'])
-    print(songYrs)
-
-
+    nodups = list(dict.fromkeys(songYrs)) # fromkeys() is a built-in function that generates a dictionary from the keys you have specified.
+    bubbleSort(nodups)
+    print(nodups)
+    
+    #songYrs = deque()
+    #for songInfo in songs.values():
+     #   songYrs.append(songInfo['Year'])
+    #nodups = list(dict.fromkeys(songYrs)) # fromkeys() is a built-in function that generates a dictionary from the keys you have specified.
+    #for e in nodups:
+        #print("⭐", e)
 
 #def artists():
  #   title = "          ARTISTS         "
