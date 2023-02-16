@@ -124,57 +124,63 @@ def allTracks():
     speaker.runAndWait()
     print('\n     1 -> Play All') #shuffle, use year, or provide random index
     print('     2 -> Dive into subplaylist') #genre, local international
-    songMix = int(input("> "))
+    songMix = int(input("> ")) #user validation
     if songMix == 1:
-        # do you want to shuffle it?
-        # if no
-        print('Shuffling...')
+        speaker.say("Do you want to shuffle the playlist?")
+        speaker.runAndWait()
+        onShuffle = input("Type Y/N\n ").lower()    
+        if 'y' in onShuffle:
+            print('Shuffling...')
 
-        """temp = []
-        songYrs = []
-        for songtl, songInfo in songs.items():
-            temp.append(songtl)
-            songYrs.append(songInfo['Year'])
+            """temp = []
+            songYrs = []
+            for songtl, songInfo in songs.items():
+                temp.append(songtl)
+                songYrs.append(songInfo['Year'])
 
-        toBeSorted = dict(zip(temp,songYrs))
-        srtdDict = sorted(toBeSorted.items(), key=lambda x:x[1])
-        print(srtdDict)
-        elemNum = 0
-        tempTup = []
+            toBeSorted = dict(zip(temp,songYrs))
+            srtdDict = sorted(toBeSorted.items(), key=lambda x:x[1])
+            print(srtdDict)
+            elemNum = 0
+            tempTup = []
 
-        while len(tempTup) != len(srtdDict):
-            for e in srtdDict:
-                
-                print('Now Playing', e[0], '(' + e[1] + ') by', end=" ")
-                for i in songs.keys():
-                    if i == e[0]:
-                        
-                        for songtl, songInfo in songs.items():
-                            if i == songtl:
-                                print(songInfo['Artist'])
-                                time.sleep(4)
-                                del e
-                                break
+            while len(tempTup) != len(srtdDict):
+                for e in srtdDict:
+                    
+                    print('Now Playing', e[0], '(' + e[1] + ') by', end=" ")
+                    for i in songs.keys():
+                        if i == e[0]:
+                            
+                            for songtl, songInfo in songs.items():
+                                if i == songtl:
+                                    print(songInfo['Artist'])
+                                    time.sleep(4)
+                                    del e
+                                    break
+                            elemDel = srtdDict[elemNum]
+                            tempTup.append(elemDel)
+                            break"""
+
+            elemNum = 0
+            tempTup = []
+            srtdDict = []
+            srtdDict = sorted(songs.values(), key=lambda x:x.get('Year'))
+            index = 0
+            while len(tempTup) != len(srtdDict):
+                for songtl, songInfo in songs.items():
+                    if songInfo['Year'] == srtdDict[index]['Year']:
+                        print('Now Playing', songtl, '(' +  srtdDict[index]['Year'] + ') by', songInfo['Artist'] + '..' )
+                        time.sleep(4)
                         elemDel = srtdDict[elemNum]
                         tempTup.append(elemDel)
-                        break"""
+                        index+=1
 
-        elemNum = 0
-        tempTup = []
-        srtdDict = []
-        srtdDict = sorted(songs.values(), key=lambda x:x.get('Year'))
-        index = 0
-        while len(tempTup) != len(srtdDict):
+                        if index == len(srtdDict):
+                            break
+        if 'n' in onShuffle:
             for songtl, songInfo in songs.items():
-                if songInfo['Year'] == srtdDict[index]['Year']:
-                    print('Now Playing', songtl, '(' +  srtdDict[index]['Year'] + ') by', songInfo['Artist'])
-                    time.sleep(4)
-                    elemDel = srtdDict[elemNum]
-                    tempTup.append(elemDel)
-                    index+=1
-
-                    if index == len(srtdDict):
-                        break               
+                print("Now Playing", songtl, '(' +  songInfo['Year'] + ') by', songInfo['Artist'] + '..')
+                time.sleep(4)
                     
 
 header()
