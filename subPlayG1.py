@@ -118,48 +118,68 @@ def bubbleSort(num):
 
                 
 
-header()
 
-speaker.say("What do you want to do?")
-speaker.runAndWait()
-print('\n     1 -> Play All') #shuffle, use year, or provide random index
-print('     2 -> Dive into subplaylist') #genre, local international
-songMix = int(input("> "))
-if songMix == 1:
+def allTracks():
+    speaker.say("What do you want to do?")
+    speaker.runAndWait()
+    print('\n     1 -> Play All') #shuffle, use year, or provide random index
+    print('     2 -> Dive into subplaylist') #genre, local international
+    songMix = int(input("> "))
+    if songMix == 1:
+        # do you want to shuffle it?
+        # if no
+        print('Shuffling...')
 
-    print('Shuffling...')
+        """temp = []
+        songYrs = []
+        for songtl, songInfo in songs.items():
+            temp.append(songtl)
+            songYrs.append(songInfo['Year'])
 
-    temp = []
-    songYrs = []
-    for songtl, songInfo in songs.items():
-        temp.append(songtl)
-        songYrs.append(songInfo['Year'])
+        toBeSorted = dict(zip(temp,songYrs))
+        srtdDict = sorted(toBeSorted.items(), key=lambda x:x[1])
+        print(srtdDict)
+        elemNum = 0
+        tempTup = []
 
-    toBeSorted = dict(zip(temp,songYrs))
-    srtdDict = sorted(toBeSorted.items(), key=lambda x:x[1])
-    print(srtdDict)
-    elemNum = 0
-    tempTup = []
+        while len(tempTup) != len(srtdDict):
+            for e in srtdDict:
+                
+                print('Now Playing', e[0], '(' + e[1] + ') by', end=" ")
+                for i in songs.keys():
+                    if i == e[0]:
+                        
+                        for songtl, songInfo in songs.items():
+                            if i == songtl:
+                                print(songInfo['Artist'])
+                                time.sleep(4)
+                                del e
+                                break
+                        elemDel = srtdDict[elemNum]
+                        tempTup.append(elemDel)
+                        break"""
 
-    while len(tempTup) != len(srtdDict):
-        for e in srtdDict:
-            
-            print('Now Playing', e[0], '(' + e[1] + ') by', end=" ")
-            for i in songs.keys():
-                if i == e[0]:
-                    
-                    for songtl, songInfo in songs.items():
-                        if i == songtl:
-                            print(songInfo['Artist'])
-                            time.sleep(4)
-                            del e
-                            break
+        elemNum = 0
+        tempTup = []
+        srtdDict = []
+        srtdDict = sorted(songs.values(), key=lambda x:x.get('Year'))
+        index = 0
+        while len(tempTup) != len(srtdDict):
+            for songtl, songInfo in songs.items():
+                if songInfo['Year'] == srtdDict[index]['Year']:
+                    print('Now Playing', songtl, '(' +  srtdDict[index]['Year'] + ') by', songInfo['Artist'])
+                    time.sleep(4)
                     elemDel = srtdDict[elemNum]
                     tempTup.append(elemDel)
+                    index+=1
+
+                    if index == len(srtdDict):
+                        break               
                     
-                    break
-                    
-            
+
+header()
+allTracks()
+
     #for i, j in srtdDict():
     #for i in temp():
         #print('Now playing', srtdDict[i][j])
