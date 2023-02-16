@@ -1,5 +1,6 @@
 import pyttsx3
 from collections import deque
+import time
 
 songs = {
     "If I Had to Write a Song About You" : {
@@ -125,10 +126,47 @@ print('\n     1 -> Play All') #shuffle, use year, or provide random index
 print('     2 -> Dive into subplaylist') #genre, local international
 songMix = int(input("> "))
 if songMix == 1:
-    print('Shuffling...')
-    songYrs = []
 
+    print('Shuffling...')
+
+    temp = []
+    songYrs = []
+    for songtl, songInfo in songs.items():
+        temp.append(songtl)
+        songYrs.append(songInfo['Year'])
+
+    toBeSorted = dict(zip(temp,songYrs))
+    srtdDict = sorted(toBeSorted.items(), key=lambda x:x[1])
+    print(srtdDict)
+    elemNum = 0
+    tempTup = []
+
+    while len(tempTup) != len(srtdDict):
+        for e in srtdDict:
+            
+            print('Now Playing', e[0], '(' + e[1] + ') by', end=" ")
+            for i in songs.keys():
+                if i == e[0]:
+                    
+                    for songtl, songInfo in songs.items():
+                        if i == songtl:
+                            print(songInfo['Artist'])
+                            time.sleep(4)
+                            del e
+                            break
+                    elemDel = srtdDict[elemNum]
+                    tempTup.append(elemDel)
+                    
+                    break
+                    
+            
+    #for i, j in srtdDict():
+    #for i in temp():
+        #print('Now playing', srtdDict[i][j])
+        #time.sleep(5)
     
+    
+
     #for songInfo in songs.values():
         #songYrs.append(songInfo['Year'])
     #nodups = list(dict.fromkeys(songYrs)) # fromkeys() is a built-in function that generates a dictionary from the keys you have specified.
@@ -142,11 +180,11 @@ if songMix == 1:
                  #songYrs.popleft()
                   #songYrs.append(songtl)
 
-    for songtl, songInfo in songs.items():
-        print("🎶", songtl, ':', songInfo['Year'])
+    #for songtl, songInfo in srtdDict.items():
+        #print("🎶", songtl, ':', songInfo['Year'])
 
-    for new in songYrs:
-        print('Now Playing', new)
+    #for new in songYrs:
+        #print('Now Playing', new)
         
 
     
