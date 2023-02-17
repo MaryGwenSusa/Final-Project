@@ -88,9 +88,6 @@ speaker.setProperty('rate', 155) #adjusted the speed of reading since its defaul
 voices = speaker.getProperty('voices')
 speaker.setProperty('voice', voices[1].id) #change voice for female through changing its index since default is male still male index is 0
 
-#.popleft()
-
-
 class BinarySearchTreeNode:
     def __init__(self, data):
         self.data = data
@@ -152,18 +149,31 @@ def header():
 
 
 def allTracks():
-    speaker.say("What do you want to do?")
-    speaker.runAndWait()
-    print('\n     1 -> Play All') #shuffle, use year, or provide random index
-    print('     2 -> Dive into subplaylist') #genre, local international
-    songMix = int(input("> ")) #user validation
-    while True:
+    whenError = False
+    if whenError == False:
+        speaker.say("What do you want to do?")
+        speaker.runAndWait()
+        print('\n     1 -> Play all') 
+        print('     2 -> Dive into subplaylist')
+        whenError = True
+
+    try:
+        songMix = int(input("> ")) #user validation
+    except ValueError:
+        speaker.say('That was confusing. Choose again.')
+        speaker.runAndWait()
+        whenError = True
+        allTracks()
+    playing = True
+    while playing:
+        if playing == 1:
+            songMix = 2
         if songMix == 1:
             speaker.say("Do you want to shuffle the playlist?")
             speaker.runAndWait()
-            onShuffle = input("Type Y/N\n ").lower()    
+            onShuffle = input("Type Y/N\n ").lower() 
             if 'y' in onShuffle:
-                print('Shuffling...')
+                print('Shuffling...') #design
 
                 """temp = []
                 songYrs = []
@@ -202,7 +212,7 @@ def allTracks():
                 while len(tempTup) != len(srtdDict):
                     for songtl, songInfo in songs.items():
                         if songInfo['Year'] == srtdDict[index]['Year']:
-                            print('Now Playing', songtl, '(' +  srtdDict[index]['Year'] + ') by', songInfo['Artist'] + '..' )
+                            print('Now Playing', songtl, '(' +  srtdDict[index]['Year'] + ') by', songInfo['Artist'] + '..' ) # design
                             time.sleep(4)
                             elemDel = srtdDict[elemNum]
                             tempTup.append(elemDel)
@@ -210,9 +220,10 @@ def allTracks():
 
                             if index == len(srtdDict):
                                 break
+
             elif 'n' in onShuffle:
                 for songtl, songInfo in songs.items():
-                    print("Now Playing", songtl, '(' +  songInfo['Year'] + ') by', songInfo['Artist'] + '..')
+                    print("Now Playing", songtl, '(' +  songInfo['Year'] + ') by', songInfo['Artist'] + '..') # design
                     time.sleep(4)
             else:
                 speaker.say('That was confusing. Please clarify.')
@@ -224,10 +235,17 @@ def allTracks():
         elif songMix == 2:
             speaker.say('What are you in for?')
             speaker.runAndWait()
-            print('\n 1 -> Feeling a certain Genre')
+            print('\n 1 -> Feeling a certain Genre') # design
             print(' 2 -> Wanna hear some local artists')
             print(' 3 -> Into foreign music')
-            sub = int(input("> "))
+            try:
+                sub = int(input("> "))
+            except ValueError:
+                speaker.say('That was confusing. Please clarify.')
+                speaker.runAndWait()
+                playing = 1
+                continue
+
             if sub == 1:
                 genre()
             elif sub == 2:
@@ -235,8 +253,14 @@ def allTracks():
             elif sub == 3:
                 localInt(sub)
             else:
-
-                pass
+                speaker.say('Please choose among the available options.')
+                speaker.runAndWait()
+                playing = 1
+                continue
+        else:
+            speaker.say('Please choose among the available options.')
+            speaker.runAndWait()
+            allTracks()
 
 def listenAgain():
     speaker.say('Listen more?')
@@ -246,7 +270,7 @@ def listenAgain():
         allTracks()
     elif 'n' in listen:
         # diff feature or quit
-        pass
+        exit()
     else:
         speaker.say('That was confusing. Please clarify.')
         speaker.runAndWait()
@@ -274,7 +298,7 @@ def genre():
                 oneList.append(i[firstIndex])
                 i.pop(0)
                 
-    oneList = list(dict.fromkeys(oneList))
+    oneList = list(dict.fromkeys(oneList)) # fromkeys() is a built-in function that generates a dictionary from the keys you have specified.
     binaryUsage = build_tree(oneList)
     arranged = binaryUsage.in_order_traversal()
     for i in arranged:
@@ -290,10 +314,10 @@ def genre():
                 if arranged[chooseGenre - 1] in songInfo['Genre']:
                     print("Now Playing", songtl, 'by', songInfo['Artist'] + '..')
                     time.sleep(4)
-                else:
-                    speaker.say('That was confusing. Please clarify.')
-                    speaker.runAndWait()
-                    continue
+        else:
+            speaker.say('That was confusing. Please clarify.')
+            speaker.runAndWait()
+            continue
             
         listenAgain()
 
@@ -310,6 +334,7 @@ def localInt(pref):
                 time.sleep(4)
 
         listenAgain()
+
         
 
 
@@ -321,52 +346,7 @@ def localInt(pref):
 header()
 allTracks()
 
-    #for i, j in srtdDict():
-    #for i in temp():
-        #print('Now playing', srtdDict[i][j])
-        #time.sleep(5)
-    
-    
 
-    #for songInfo in songs.values():
-        #songYrs.append(songInfo['Year'])
-    #nodups = list(dict.fromkeys(songYrs)) # fromkeys() is a built-in function that generates a dictionary from the keys you have specified.
-    #bubbleSort(nodups)
-    #for songtl, songInfo in songs.items():
-        #if songInfo['Year']: #acc useless
-            #for e in nodups:
-                #if songInfo['Year'] != e:
-                    #again = e
-                #if s
-                 #songYrs.popleft()
-                  #songYrs.append(songtl)
-
-    #for songtl, songInfo in srtdDict.items():
-        #print("🎶", songtl, ':', songInfo['Year'])
-
-    #for new in songYrs:
-        #print('Now Playing', new)
-        
-
-    
-
-    #songYrs = deque()
-    #for songInfo in songs.values():
-     #   songYrs.append(songInfo['Year'])
-    #nodups = list(dict.fromkeys(songYrs)) # fromkeys() is a built-in function that generates a dictionary from the keys you have specified.
-    #for e in nodups:
-        #print("⭐", e)
-
-#def artists():
- #   title = "          ARTISTS         "
-  #  print("=" *  33) # created a header design
-   # print(title)
-    #print("=" * 33)
-
-    #for songInfo in songs.values():
-     #   print(">", songInfo['Artist'])
-
-#artists()
 
 
 
