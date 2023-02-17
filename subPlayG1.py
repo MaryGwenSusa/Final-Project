@@ -306,7 +306,13 @@ def genre():
         print(' ', firstIndex, '->', i)
     
     while True:
-        chooseGenre = int(input('> ')) #user validation
+        try:
+            chooseGenre = int(input('> ')) 
+        except ValueError:
+            speaker.say('That was confusing. Please clarify.')
+            speaker.runAndWait()
+            continue
+
         if chooseGenre > 0 and chooseGenre < 8:
             title = "                    "
             print(title, arranged[chooseGenre - 1].upper(), title)
@@ -315,7 +321,7 @@ def genre():
                     print("Now Playing", songtl, 'by', songInfo['Artist'] + '..')
                     time.sleep(4)
         else:
-            speaker.say('That was confusing. Please clarify.')
+            speaker.say('Please choose among the available options.')
             speaker.runAndWait()
             continue
             
