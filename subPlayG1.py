@@ -149,7 +149,7 @@ def header():
     print("=" * 33)
 
     for songtl, songInfo in songs.items():
-        print("🎶", songtl, 'by', songInfo['Artist'])
+        print("🎶 ", songtl, 'by', songInfo['Artist'])
 
 
 def allTracks():
@@ -259,10 +259,10 @@ def genre():
     # want some local tunes or international artists
     speaker.say('Here are the list of genres of the records you own. Choose one.')
     speaker.runAndWait()
-    title = "          GENRES         "
-    print("=" *  33) # created a header design
+    title = "            GENRES           "
+    print("=" *  30) # created a header design
     print(title)
-    print("=" * 33)
+    print("=" * 30)
     songGenre = []
     for songInfo in songs.values():
         songGenre.append(songInfo['Genre'])
@@ -285,7 +285,17 @@ def genre():
         firstIndex+=1
         print(' ', firstIndex, '->', i)
     
-    
+    chooseGenre = int(input('> '))
+    if chooseGenre > 0 and chooseGenre < 8:
+        title = "                    "
+        print(title, arranged[chooseGenre - 1].upper(), title)
+        for songtl, songInfo in songs.items():
+            if arranged[chooseGenre - 1] in songInfo['Genre']:
+                print("Now Playing", songtl, 'by', songInfo['Artist'] + '..')
+                time.sleep(4)
+                
+        listenAgain()
+
 
 
 # option of adding a song?     

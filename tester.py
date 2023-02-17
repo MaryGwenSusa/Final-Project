@@ -1,4 +1,4 @@
-from collections import deque
+import time
 songs = {
     "If I Had to Write a Song About You" : {
         'Artist': 'Aaron Taylor',
@@ -117,9 +117,9 @@ def genre():
     # want some local tunes or international artists
 
     title = "          GENRES         "
-    print("=" *  33) # created a header design
+    print("=" *  30) # created a header design
     print(title)
-    print("=" * 33)
+    print("=" * 30)
     songGenre = []
     for songInfo in songs.values():
         songGenre.append(songInfo['Genre'])
@@ -141,6 +141,18 @@ def genre():
     for i in arranged:
         firstIndex+=1
         print(' ', firstIndex, '->', i)
+    
+    chooseGenre = int(input('> '))
+    if chooseGenre > 0 and chooseGenre < 8:
+        title = "                    "
+        print(title, arranged[chooseGenre - 1].upper(), title)
+        for songtl, songInfo in songs.items():
+            if arranged[chooseGenre - 1] in songInfo['Genre']:
+                print("Now Playing", songtl, 'by', songInfo['Artist'] + '..')
+                time.sleep(4)
+
+
+
     
 genre()
 
