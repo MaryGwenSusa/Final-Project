@@ -1,5 +1,4 @@
 import pyttsx3
-from collections import deque
 import time
 
 songs = {
@@ -68,8 +67,8 @@ songs = {
 # ask user if want some tunes
 # need an initial list/array?
 
-    # show lists: according to artist, song
-    # shuffle based on year (actually arranging them)
+    # show lists: according to artist, song !!!
+    # shuffle based on year (actually arranging them) !!!
     # group based on: genre, country
     #genre
     #when they are stored - create random index? based on song len 
@@ -232,9 +231,9 @@ def allTracks():
             if sub == 1:
                 genre()
             elif sub == 2:
-                pass
+                localInt(sub)
             elif sub == 3:
-                pass
+                localInt(sub)
             else:
 
                 pass
@@ -254,9 +253,6 @@ def listenAgain():
         listenAgain()
 
 def genre():
-    # create subplaylist?
-    # what genre are you in for
-    # want some local tunes or international artists
     speaker.say('Here are the list of genres of the records you own. Choose one.')
     speaker.runAndWait()
     title = "            GENRES           "
@@ -285,16 +281,38 @@ def genre():
         firstIndex+=1
         print(' ', firstIndex, '->', i)
     
-    chooseGenre = int(input('> '))
-    if chooseGenre > 0 and chooseGenre < 8:
+    while True:
+        chooseGenre = int(input('> ')) #user validation
+        if chooseGenre > 0 and chooseGenre < 8:
+            title = "                    "
+            print(title, arranged[chooseGenre - 1].upper(), title)
+            for songtl, songInfo in songs.items():
+                if arranged[chooseGenre - 1] in songInfo['Genre']:
+                    print("Now Playing", songtl, 'by', songInfo['Artist'] + '..')
+                    time.sleep(4)
+                else:
+                    speaker.say('That was confusing. Please clarify.')
+                    speaker.runAndWait()
+                    continue
+            
+        listenAgain()
+
+def localInt(pref):
+    choices = ['Local', 'International']
+    if pref > 1 and pref < 4:
         title = "                    "
-        print(title, arranged[chooseGenre - 1].upper(), title)
+        header = choices[pref - 2] 
+        label = header + " Artist/s"
+        print(title, label.upper(), title)
         for songtl, songInfo in songs.items():
-            if arranged[chooseGenre - 1] in songInfo['Genre']:
+            if header in songInfo['Country']:
                 print("Now Playing", songtl, 'by', songInfo['Artist'] + '..')
                 time.sleep(4)
-                
+
         listenAgain()
+        
+
+
 
 
 
