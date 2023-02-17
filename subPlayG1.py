@@ -89,8 +89,58 @@ speaker.setProperty('rate', 155) #adjusted the speed of reading since its defaul
 voices = speaker.getProperty('voices')
 speaker.setProperty('voice', voices[1].id) #change voice for female through changing its index since default is male still male index is 0
 
-
 #.popleft()
+
+
+class BinarySearchTreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+    def add_child(self, data):
+        if data == self.data:
+            return
+
+        if data < self.data:
+            #add data in left subtree
+            if self.left:
+                self.left.add_child(data) #if self.left already has a value--recursively call the function to create another small subtree with another child value
+            else:
+                self.left = BinarySearchTreeNode(data)
+        else:
+            #add data in right subtree
+            if self.right:
+                self.right.add_child(data) #if self.right already has a value--recursively call the function to create another small subtree with another child value
+            else:
+                self.right = BinarySearchTreeNode(data)
+    
+    def in_order_traversal(self):
+        #returns the nodes in ascending order
+        elements = []
+
+        #visit left tree
+        if self.left:
+            elements += self.left.in_order_traversal()
+
+        #visit base/root node
+        elements.append(self.data)
+
+        #visit right tree
+        if self.right:
+            elements += self.right.in_order_traversal()
+
+        return elements
+
+def build_tree(elements):
+    #helper method - takes elements as inputs
+    root = BinarySearchTreeNode(elements[0])
+
+    for i in range (1, len(elements)):
+        root.add_child(elements[i])
+    
+    return root
+
 
 def header():
     title = "          VINYL PLAYER          "
@@ -175,7 +225,7 @@ def allTracks():
         elif songMix == 2:
             speaker.say('What are you in for?')
             speaker.runAndWait()
-            print(' 1 -> Feeling a certain Genre')
+            print('\n 1 -> Feeling a certain Genre')
             print(' 2 -> Wanna hear some local artists')
             print(' 3 -> Into foreign music')
             sub = int(input("> "))
@@ -207,14 +257,15 @@ def genre():
     # create subplaylist?
     # what genre are you in for
     # want some local tunes or international artists
-
+    speaker.say('Here are the list of genres of the records you own. Choose one.')
+    speaker.runAndWait()
     title = "          GENRES         "
     print("=" *  33) # created a header design
     print(title)
     print("=" * 33)
     songGenre = []
     for songInfo in songs.values():
-        songGenre = songInfo['Genre']
+        songGenre.append(songInfo['Genre'])
     
     splitted = []
     oneList = []
@@ -226,11 +277,15 @@ def genre():
             while len(i):
                 oneList.append(i[firstIndex])
                 i.pop(0)
-            
+                
     oneList = list(dict.fromkeys(oneList))
-    for i in oneList:
+    binaryUsage = build_tree(oneList)
+    arranged = binaryUsage.in_order_traversal()
+    for i in arranged:
         firstIndex+=1
         print(' ', firstIndex, '->', i)
+    
+    
 
 
 # option of adding a song?     
