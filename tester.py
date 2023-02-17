@@ -2,7 +2,7 @@ from collections import deque
 songs = {
     "If I Had to Write a Song About You" : {
         'Artist': 'Aaron Taylor',
-        'Genre': 'Indian Film Pop, R&B/Soul',
+        'Genre': 'Indian Film Pop,R&B/Soul',
         'Year': '2016',
         'Country': 'International',
     },
@@ -14,7 +14,7 @@ songs = {
     },
     "Solomon" : {
         'Artist': 'Munimuni, Clara Benin',
-        'Genre': 'Indie Folk, Country',
+        'Genre': 'Indie Folk,Country',
         'Year': '2019',
         'Country': 'Local',
     },
@@ -26,13 +26,13 @@ songs = {
     },
     "Ride" : {
         'Artist': 'HYBS',
-        'Genre': 'Alternative/Indie, Pop',
+        'Genre': 'Alternative/Indie,Pop',
         'Year': '2022',
         'Country': 'International',
     },
     "Absence of You" : {
         'Artist': 'grentperez',
-        'Genre': 'Alternative/Indie, Rock',
+        'Genre': 'Alternative/Indie,Rock',
         'Year': '2022',
         'Country': 'International',
     },
@@ -56,7 +56,7 @@ songs = {
     },
     "Used to Me" : {
         'Artist': 'Luke Chiang',
-        'Genre': 'Alternative/Indie, Pop',
+        'Genre': 'Alternative/Indie,Pop',
         'Year': '2019',
         'Country': 'International',
     }
@@ -74,16 +74,26 @@ def genre():
     songGenre = []
     for songInfo in songs.values():
         songGenre.append(songInfo['Genre'])
-    songGenre = list(set(songGenre))
     
-    options = 1
-    splitted = deque()
+    #options = 1
+    splitted = []
+    oneList = []
+    firstIndex = 0
     for e in songGenre:
-        init = e.split(' ')
+        init = e.split(',')
         splitted.append(init)
+        for i in splitted:
+            while len(i):
+                oneList.append(i[firstIndex])
+                i.pop(0)
+                
 
         #print(options, '->', e)
         #options+=1
-    print(splitted)
+    oneList = list(dict.fromkeys(oneList))
+    for i in oneList:
+        firstIndex+=1
+        print(' ', firstIndex, '->', i)
+    
 genre()
 

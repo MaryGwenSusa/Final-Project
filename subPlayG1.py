@@ -5,7 +5,7 @@ import time
 songs = {
     "If I Had to Write a Song About You" : {
         'Artist': 'Aaron Taylor',
-        'Genre': 'Indian Film Pop, R&B/Soul',
+        'Genre': 'Indian Film Pop,R&B/Soul',
         'Year': '2016',
         'Country': 'International',
     },
@@ -17,7 +17,7 @@ songs = {
     },
     "Solomon" : {
         'Artist': 'Munimuni, Clara Benin',
-        'Genre': 'Indie Folk, Country',
+        'Genre': 'Indie Folk,Country',
         'Year': '2019',
         'Country': 'Local',
     },
@@ -29,13 +29,13 @@ songs = {
     },
     "Ride" : {
         'Artist': 'HYBS',
-        'Genre': 'Alternative/Indie, Pop',
+        'Genre': 'Alternative/Indie,Pop',
         'Year': '2022',
         'Country': 'International',
     },
     "Absence of You" : {
         'Artist': 'grentperez',
-        'Genre': 'Alternative/Indie, Rock',
+        'Genre': 'Alternative/Indie,Rock',
         'Year': '2022',
         'Country': 'International',
     },
@@ -59,7 +59,7 @@ songs = {
     },
     "Used to Me" : {
         'Artist': 'Luke Chiang',
-        'Genre': 'Alternative/Indie, Pop',
+        'Genre': 'Alternative/Indie,Pop',
         'Year': '2019',
         'Country': 'International',
     }
@@ -71,9 +71,10 @@ songs = {
     # show lists: according to artist, song
     # shuffle based on year (actually arranging them)
     # group based on: genre, country
+    #genre
+    #when they are stored - create random index? based on song len 
+    #                       - get song of the index
 
-#when they are stored - create random index? based on song len 
-#                       - get song of the index
 # show that song playing with options of next or backwward or quit
 #               show the next/or before song
 # or quit
@@ -99,24 +100,6 @@ def header():
 
     for songtl, songInfo in songs.items():
         print("🎶", songtl, 'by', songInfo['Artist'])
-
-
-def bubbleSort(num):
-    """using the argument for the range parameters so the number of the elements in the list can be easily changed and considering the 0 index value by '-1'
-    plus since the last comparison between the last and second to the last position will satisfy the order already"""
-    for i in range(len(num)-1, 0, -1): 
-        for j in range(i):
-            """this time i will be the last element index (since the step is negative); for this reason, the unsorted range will be lessening upto 0 index to 1 
-            index elements unlike in Selection Sort where its last unsorted range is the last index element and its adjacent
-            
-            - to sort in descending order simply change the '<' to '>' then the lesser value will be swapped towards the right"""
-            if num[j] > num[j+1]: # will compare adjacent elements (this will implement putting the biggest quantity value at the last index first upon ordering)
-                # temp = num[j]
-                # num[j] = num[j+1]
-                # num[j+1] = temp
-                num[j], num[j+1] = num[j+1], num[j] # From Nikita Sharma's comment on the yt vid, python allows easy swapping without a third variable
-
-                
 
 
 def allTracks():
@@ -187,9 +170,24 @@ def allTracks():
                 speaker.runAndWait()
                 continue
 
-            
-            #listen again methos
-            
+            listenAgain()
+
+        elif songMix == 2:
+            speaker.say('What are you in for?')
+            speaker.runAndWait()
+            print(' 1 -> Feeling a certain Genre')
+            print(' 2 -> Wanna hear some local artists')
+            print(' 3 -> Into foreign music')
+            sub = int(input("> "))
+            if sub == 1:
+                genre()
+            elif sub == 2:
+                pass
+            elif sub == 3:
+                pass
+            else:
+
+                pass
 
 def listenAgain():
     speaker.say('Listen more?')
@@ -205,7 +203,37 @@ def listenAgain():
         speaker.runAndWait()
         listenAgain()
 
-                    
+def genre():
+    # create subplaylist?
+    # what genre are you in for
+    # want some local tunes or international artists
+
+    title = "          GENRES         "
+    print("=" *  33) # created a header design
+    print(title)
+    print("=" * 33)
+    songGenre = []
+    for songInfo in songs.values():
+        songGenre = songInfo['Genre']
+    
+    splitted = []
+    oneList = []
+    firstIndex = 0
+    for e in songGenre:
+        init = e.split(',')
+        splitted.append(init)
+        for i in splitted:
+            while len(i):
+                oneList.append(i[firstIndex])
+                i.pop(0)
+            
+    oneList = list(dict.fromkeys(oneList))
+    for i in oneList:
+        firstIndex+=1
+        print(' ', firstIndex, '->', i)
+
+
+# option of adding a song?     
 
 header()
 allTracks()
@@ -257,28 +285,9 @@ allTracks()
 
 #artists()
 
-def genre():
-    # create subplaylist?
-    # what genre are you in for
-    # want some local tunes or international artists
-    title = "          GENRES         "
-    print("=" *  33) # created a header design
-    print(title)
-    print("=" * 33)
-    songGenre = []
-    for songInfo in songs.values():
-        songGenre = songInfo['Genre']
-    
-    print(songGenre)
-
-genre()
 
 
-def year():
-    title = "          YEAR         "
-    print("=" *  33) # created a header design
-    print(title)
-    print("=" * 33)
+
 
     
 
