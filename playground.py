@@ -21,7 +21,7 @@ def houseEnter():
                     failed += 1
 
             if failed == 0:        
-                cprint("\n\033[0m\033[3m\033[32mUnlocking...\033[0m")
+                cprint("\n🏡 \033[0m\033[3m\033[32mUnlocking...\033[0m")
                 time.sleep(1)
                 speaker.say("Welcome! You may come in.")
                 speaker.runAndWait()
@@ -35,22 +35,22 @@ def houseEnter():
                 turns -= 1        
                 speaker.say("Invalid.")
                 speaker.runAndWait()
-                print("\033[0mYou have \033[31m{}\033[0m more attempts.".format(turns))
+                print("\033[0mYou have \033[31m{}\033[0m more attempts. 👥".format(turns))
 
                 if turns == 0:
                     if trials != 1:     
-                        cprint("You will have attempts again after 15 mins. If you fail again, the door's alarm will ring.", "red")
+                        cprint("You will have attempts again after 15 mins. If you fail again, the door's alarm will ring. 📣", "red")
                         time.sleep(4)
                         speaker.say("Would you wait at the front door?")
                         speaker.runAndWait()
-                        firstFail = input("Type Y/N \033[96m\n").lower()
+                        firstFail = input("Type Y/N 🤓\033[96m\n").lower()
 
                         if 'y' in firstFail:
                             turns = 3
                             time.sleep(4)
                             pass
                         elif 'n' in firstFail:
-                            print("\033[0mYou decided to go through the \033[04mback door\033[0m instead.")
+                            print("\033[0mYou decided to go through the \033[04mback door\033[0m 🚪 instead.")
                             speaker.say("This is the back door!")
                             time.sleep(1)
                             speaker.say("Type in your password to unlock the door.")
@@ -64,13 +64,14 @@ def houseEnter():
                             trials = 1
 
                     if trials == 1:
+                        speaker.say("Dialing 911.. Attempt of breaking in...")
+                        speaker.runAndWait()
                         play_it('alarm.mp3')
                         #fgdfgsgsdfg
 
-                        time.sleep(1)
-                        speaker.say("Dialing 911.. Attempt of breaking in...")
-                        speaker.runAndWait()
-                        time.sleep(4)
+                        #time.sleep(1)
+                        
+                        #time.sleep(4)
                         exit()
 
                     else:
@@ -87,17 +88,17 @@ def security():
         justView = False
         while True:
             if errorMenu == False:
-                onSecurity = input("Type Y/N \033[96m\n").lower()    #reset the input color        
+                onSecurity = input("Type Y/N 🤓\033[96m\n").lower()    #reset the input color        
             elif errorMenu == True:
                 onSecurity = 'y'
 
             if 'y' in onSecurity:
                 speaker.say("What do you want to do?")
                 speaker.runAndWait()
-                print('\n     \033[0m\033[01m\033[36m1\033[0m -> \033[03mModify front door code\033[0m')
-                print('     \033[01m\033[36m2\033[0m -> \033[03mModify back door code\033[0m') 
-                print('     \033[01m\033[36m3\033[0m -> \033[03mModify front and back door code\033[0m')
-                print('     \033[01m\033[36m4\033[0m -> \033[03mView the codes\033[0m')
+                print('\n     \033[0m\033[01m\033[36m1\033[0m -> \033[03mModify front door code\033[0m ⚙')
+                print('     \033[01m\033[36m2\033[0m -> \033[03mModify back door code\033[0m ⚙') 
+                print('     \033[01m\033[36m3\033[0m -> \033[03mModify front and back door code\033[0m ⚙')
+                print('     \033[01m\033[36m4\033[0m -> \033[03mView the codes\033[0m 📄')
 
                 time.sleep(2)
                 try:
@@ -185,7 +186,7 @@ def security():
                     time.sleep(1)
                     speaker.say('Password Valid. Saved!')
                     speaker.runAndWait()
-                print('\n\033[0mRemember your door codes:')
+                print('\n\033[0mRemember your door codes 🚪')
                 for key, value in doorCd.items():
                     print("\033[01m\033[34m{}\033[0m : {}".format(key, str(value)))
                 
