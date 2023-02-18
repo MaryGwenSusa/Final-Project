@@ -62,29 +62,9 @@ songs = {
         'Year': '2019',
         'Country': 'International',
     }
+    
 }
 
-# ask user if want some tunes
-# need an initial list/array?
-
-    # show lists: according to artist, song !!!
-    # shuffle based on year (actually arranging them) !!!
-    # group based on: genre, country
-    #genre
-    #when they are stored - create random index? based on song len 
-    #                       - get song of the index
-
-# show that song playing with options of next or backwward or quit
-#               show the next/or before song
-# or quit
-
-
-speaker = pyttsx3.init() #initialize
-rate = speaker.getProperty('rate')
-speaker.setProperty('rate', 155) #adjusted the speed of reading since its default 200 is too fast
-
-voices = speaker.getProperty('voices')
-speaker.setProperty('voice', voices[1].id) #change voice for female through changing its index since default is male still male index is 0
 
 class BinarySearchTreeNode:
     def __init__(self, data):
@@ -153,10 +133,9 @@ def allTracks():
         speaker.runAndWait()
         print('\n     \033[0m\033[33m\033[01m1\033[0m -> \033[3mPlay all\033[0m') 
         print('     \033[33m\033[01m2\033[0m -> \033[3mDive into subplaylists\033[0m')
-        whenError = True
 
     try:
-        songMix = int(input(">\033[32m ")) #user validation
+        songMix = int(input("Choose a number:\033[32m ")) #user validation
     except ValueError:
         speaker.say('That was confusing. Choose again.')
         speaker.runAndWait()
@@ -205,18 +184,18 @@ def allTracks():
                 elemNum = 0
                 tempTup = []
                 srtdDict = []
-                srtdDict = sorted(songs.values(), key=lambda x:x.get('Year'))
+                srtdDict = sorted(songs.values(), key=lambda x:x.get('Year')) # sorts the dict using year key values
                 index = 0
                 while len(tempTup) != len(srtdDict):
                     for songtl, songInfo in songs.items():
-                        if songInfo['Year'] == srtdDict[index]['Year']:
+                        if songInfo['Year'] == srtdDict[index]['Year']: # if songtl's year value is equal to the first element of srtDict list which is the oldest year (smallest in value)
                             print('\n\033[3mNow Playing\033[0m', "\033[01m%s\033[0m" % songtl, '\033[3m(' +  srtdDict[index]['Year'] + ') by', songInfo['Artist'] + '..\033[0m' ) # design
                             time.sleep(4)
                             elemDel = srtdDict[elemNum]
-                            tempTup.append(elemDel)
-                            index+=1
+                            tempTup.append(elemDel) # append the srtDict element that has matched a value in the og dict to another list-- while loop will be false when all element matched to value in og dict
+                            index+=1 #increment index of srtDict element (sorted in year)
 
-                            if index == len(srtdDict):
+                            if index == (len(srtdDict)): # since srtDict list will eventually become out of range if index of srtDict is equal to its length then break out on the for loop
                                 break
 
             elif 'n' in onShuffle:
@@ -237,7 +216,7 @@ def allTracks():
             print(' \033[34m\033[01m2\033[0m -> \033[3mWanna hear some local artists\033[0m')
             print(' \033[34m\033[01m3\033[0m -> \033[3mInto foreign music\033[0m')
             try:
-                sub = int(input(">\033[32m "))
+                sub = int(input("Choose a number: \033[32m "))
             except ValueError:
                 speaker.say('That was confusing. Please clarify.')
                 speaker.runAndWait()
@@ -268,6 +247,8 @@ def listenAgain():
         allTracks()
     elif 'n' in listen:
         # diff feature or quit
+        speaker.say("Activate me if you'll need my help again.")
+        speaker.runAndWait()
         print("\033[0m\n💤 💤 💤")
         time.sleep(2)
         exit()
@@ -285,29 +266,29 @@ def genre():
     print("=" * 30)
     songGenre = []
     for songInfo in songs.values():
-        songGenre.append(songInfo['Genre'])
+        songGenre.append(songInfo['Genre']) # append Genre values to another list but each will be appended as individual list
     
     splitted = []
     oneList = []
     firstIndex = 0
-    for e in songGenre:
-        init = e.split(',')
+    for e in songGenre: # since nested list
+        init = e.split(',') # since some songs encompasses different genres split them
         splitted.append(init)
-        for i in splitted:
+        for i in splitted: 
             while len(i):
-                oneList.append(i[firstIndex])
-                i.pop(0)
+                oneList.append(i[firstIndex]) # inner list each element will be appended
+                i.pop(0) # then pop from splitted list
                 
     oneList = list(dict.fromkeys(oneList)) # fromkeys() is a built-in function that generates a dictionary from the keys you have specified.
     binaryUsage = build_tree(oneList)
-    arranged = binaryUsage.in_order_traversal()
-    for i in arranged:
+    arranged = binaryUsage.in_order_traversal() # sorting them alphabetically
+    for i in arranged: # sorted list
         firstIndex+=1
         print(' ', "\033[34m\033[01m%s\033[0m" % firstIndex, '->', "\033[01m%s\033[0m" % i)
     
     while True:
         try:
-            chooseGenre = int(input('>\033[32m ')) 
+            chooseGenre = int(input('Choose a number: \033[32m ')) 
         except ValueError:
             speaker.say('That was confusing. Please clarify.')
             speaker.runAndWait()
@@ -315,7 +296,7 @@ def genre():
 
         if chooseGenre > 0 and chooseGenre < 9:
             title = "                    "
-            print(title,"%s\033[0m" % arranged[chooseGenre - 1].upper(), title)
+            print(title,"%s\033[0m" % arranged[chooseGenre - 1].upper(), title) 
             for songtl, songInfo in songs.items():
                 if arranged[chooseGenre - 1] in songInfo['Genre']:
                     print('\033[0m\033[3mNow Playing\033[0m', "\033[01m%s\033[0m" % songtl, '\033[3mby', songInfo['Artist'] + '..\033[0m')
@@ -341,17 +322,19 @@ def localInt(pref):
 
         listenAgain()
 
-        
-
-
-
-
-
-# option of adding a song?    
 def main ():
 
     header()
     allTracks()
+
+
+
+speaker = pyttsx3.init() #initialize
+rate = speaker.getProperty('rate')
+speaker.setProperty('rate', 155) #adjusted the speed of reading since its default 200 is too fast
+
+voices = speaker.getProperty('voices')
+speaker.setProperty('voice', voices[1].id) #change voice for female through changing its index since default is male still male index is 0
 
 main()
 

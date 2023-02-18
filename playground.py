@@ -247,7 +247,7 @@ def validPassword(): #designn temrinasdasds
     inputValue = True
     if inputValue == True:
         time.sleep(2)
-        password = str(input('\033[0mInput:\033[36m '))
+        password = input('\033[0mInput:\033[36m ')
         if not len(password): # JSHKSDF INPUT VALIDATION??hghgj
             time.sleep(1)
             speaker.say("Empty string was entered!")
@@ -267,7 +267,7 @@ def validPassword(): #designn temrinasdasds
             inputValue = False
 
         if inputValue == True:
-            return str(password)
+            return password
 
         elif inputValue == False:
             time.sleep(2)
@@ -312,7 +312,6 @@ if __name__ == '__main__': #executes coroutine on the default event loop
     houseEnter()
     security()
 
-    #when inside change/code
     #music?
     #check business?
 
