@@ -2,7 +2,6 @@ import time
 import pyttsx3
 from termcolor import cprint
 from python_play.player import play_it
-#from subPlayG1 
 
 def houseEnter():
     trials = 0
@@ -14,12 +13,11 @@ def houseEnter():
         #check if the turns are more than zero
         while turns > 0:         
             failed = 0
-
-            # for every character in code    
-            for char in code[index]:
-                if char not in attempts:
-                    print("_",end=""), 
-                    failed += 1
+            
+            # prints out the black number of chars 
+            if attempts != code[index]:
+                print("_" * len(code[index])), 
+                failed += 1
 
             if failed == 0:        
                 cprint("\n🏡 \033[0m\033[3m\033[32mUnlocking...\033[0m")
@@ -27,11 +25,14 @@ def houseEnter():
                 speaker.say("Welcome! You may come in.")
                 speaker.runAndWait()
                 break
+            # breaks the outer while loop
             entering = False
-                
-            guess = input("\n\033[01m\033[92m") 
-            attempts += guess
+            
+            # if guess is equal to the code there is no condition for it so it will loop again carrying the data of guess variable and failed variable remains 0
+            guess = input("\033[01m\033[92m") 
+            attempts = guess
 
+            # would also loop again with turns value decremented
             if guess != code[index]:    
                 turns -= 1        
                 speaker.say("Invalid.")
@@ -39,7 +40,7 @@ def houseEnter():
                 print("\033[0mYou have \033[31m{}\033[0m more attempts. 👥".format(turns))
 
                 if turns == 0:
-                    if trials != 1:     
+                    if trials != 1:  # lets user try again after "reloading" because of failed attempts
                         cprint("You will have attempts again after 15 mins. If you fail again, the door's alarm will ring. 📣", "red")
                         time.sleep(4)
                         speaker.say("Would you wait at the front door?")
@@ -47,7 +48,7 @@ def houseEnter():
                         firstFail = input("Type Y/N 🤓\033[96m\n").lower()
 
                         if 'y' in firstFail:
-                            turns = 3
+                            turns = 3 # can have 3 turns again
                             time.sleep(4)
                             pass
                         elif 'n' in firstFail:
@@ -64,20 +65,14 @@ def houseEnter():
                         else:
                             trials = 1
 
-                    if trials == 1:
+                    if trials == 1: # second trial failed also
                         speaker.say("Dialing 911.. Attempt of breaking in...")
                         speaker.runAndWait()
                         play_it('alarm.mp3')
-                        #fgdfgsgsdfg
-
-                        #time.sleep(1)
-                        
-                        #time.sleep(4)
                         exit()
 
                     else:
-                        trials+=1
-                    #alarm? or calling 911
+                        trials+=1 # when first trial failed would increment
 
 def security():
         doors = ['Front Door', 'Back Door']
@@ -177,6 +172,15 @@ def security():
                     errorMenu = True
                     continue
                 
+                if doorCd["Front Door"] == doorCd["Back Door"]:
+                    speaker.say('You are using similar codes for back and front door. Are you sure about this?')
+                    speaker.runAndWait()
+                    doubts = input('Type Y/N 🤓\n\033[96m').lower() #reset terminal color
+                    if 'y' in doubts:
+                        justView = False
+                    if 'n' in doubts:
+                        justView = True
+                    #else:
 
 
 
@@ -186,10 +190,12 @@ def security():
                     time.sleep(1)
                     speaker.say('Password Valid. Saved!')
                     speaker.runAndWait()
+
                 print('\n\033[0mRemember your door codes 🚪')
                 for key, value in doorCd.items():
                     print("\033[01m\033[34m{}\033[0m : {}".format(key, str(value)))
-                                    
+                
+
                 if justView == True:
                     speaker.say('Do you have second thoughts on your current codes?')
                     speaker.runAndWait()
