@@ -200,7 +200,7 @@ def allTracks():
 
             elif 'n' in onShuffle:
                 for songtl, songInfo in songs.items():
-                    print('\n\033[0m\033[3mNow Playing\033[0m', "\033[01m%s\033[0m" % songtl, '\033[3m('  +  songInfo['Year'] + ') by', songInfo['Artist'] + '..\033[0m') # design
+                    print('\n\033[0m\033[3mNow Playing\033[0m', "\033[01m%s\033[0m" % songtl, '\033[3m('  +  songInfo['Year'] + ') by', songInfo['Artist'] + '..\033[0m') 
                     time.sleep(4)
             else:
                 speaker.say('That was confusing. Please clarify.')
@@ -212,7 +212,7 @@ def allTracks():
         elif songMix == 2:
             speaker.say('What are you in for?')
             speaker.runAndWait()
-            print('\n \033[0m\033[34m\033[01m1\033[0m -> \033[3mFeeling a certain genre\033[0m') # design
+            print('\n \033[0m\033[34m\033[01m1\033[0m -> \033[3mFeeling a certain genre\033[0m') 
             print(' \033[34m\033[01m2\033[0m -> \033[3mWanna hear some local artists\033[0m')
             print(' \033[34m\033[01m3\033[0m -> \033[3mInto foreign music\033[0m')
             try:
@@ -246,7 +246,6 @@ def listenAgain():
     if 'y' in listen:
         allTracks()
     elif 'n' in listen:
-        # diff feature or quit
         speaker.say("Activate me if you'll need my help again.")
         speaker.runAndWait()
         print("\033[0m\n💤 💤 💤")

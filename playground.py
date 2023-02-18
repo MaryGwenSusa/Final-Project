@@ -312,8 +312,7 @@ if __name__ == '__main__': #executes coroutine on the default event loop
     houseEnter()
     security()
 
-    #music?
-    #check business?
+
 
 
 
