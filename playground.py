@@ -82,10 +82,11 @@ def security():
         speaker.runAndWait()
         errorMenu = False
         justView = False
-        while True:
-            if errorMenu == False:
+        samePass = False
+        while True: # for input validation looping of prog
+            if errorMenu == False: # init
                 onSecurity = input("\033[0mType Y/N 🤓\033[96m\n").lower()    #reset the input color        
-            elif errorMenu == True:
+            elif errorMenu == True: # if an error on input when choosing what to do occur would automatically pass that user chose before to do something about security
                 onSecurity = 'y'
 
             if 'y' in onSecurity:
@@ -127,12 +128,12 @@ def security():
                     print(validPassword.__doc__)
                     newCode = validPassword()
                     try: 
-                        doorCd["Front Door"] = newCode
+                        doorCd["Back Door"] = newCode
                     except TypeError or ValueError:
                         speaker.say('There seems to be a problem on my system. I apologize. Please try again.')
                         speaker.runAndWait()
                         newCode = validPassword()
-                        doorCd["Front Door"] = newCode
+                        doorCd["Back Door"] = newCode
                                 
                 elif askUser == 3:
                     speaker.say("Input the new code for front door")
@@ -162,30 +163,34 @@ def security():
                         doorCd["Back Door"] = newCode
                 
                 elif askUser == 4:
-                    justView = True
+                    justView = True # would pass to do printing of codes
+                    samePass = True
                     pass
 
                 else:
-                    speaker.say('Please choose among the available options.')
+                    speaker.say('Please choose among the available options.') # input validation looping
                     speaker.runAndWait()
                     time.sleep(1)
                     errorMenu = True
                     continue
                 
-                if doorCd["Front Door"] == doorCd["Back Door"]:
-                    speaker.say('You are using similar codes for back and front door. Are you sure about this?')
-                    speaker.runAndWait()
-                    doubts = input('Type Y/N 🤓\n\033[96m').lower() #reset terminal color
-                    if 'y' in doubts:
-                        justView = False
-                    if 'n' in doubts:
-                        justView = True
-                    #else:
+                if samePass == False: # same passcode and only when user is sure would not show
+                    if doorCd["Front Door"] == doorCd["Back Door"]:
+                        speaker.say('You are using similar codes for back and front door. Are you sure about this?')
+                        speaker.runAndWait()
+                        doubts = input('\033[0mType Y/N 🤓\n\033[96m').lower() #reset terminal color
+                        if 'y' in doubts:
+                            justView = False
+                        elif 'n' in doubts:
+                            errorMenu = True
+                            continue
+                        else:
+                            speaker.say('That was confusing. Please clarify.')
+                            speaker.runAndWait()
+                            errorMenu = True
+                            continue
 
 
-
-
-                    #shud i add pa if magsame si codes for user to rethink 
                 if justView == False:
                     time.sleep(1)
                     speaker.say('Password Valid. Saved!')
@@ -210,7 +215,9 @@ def security():
                         tunes()
                         
                     else:
-                        yesNo = ['y', 'n']
+                        speaker.say('That was confusing. Please clarify.')
+                        speaker.runAndWait()
+                        yesNo = ['y', 'n'] # was just extra here T__T
                         if not (yesNo[0] in doubts or yesNo[1] in doubts):
                             errorMenu = True
                             continue
