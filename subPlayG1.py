@@ -78,8 +78,6 @@ songs = {
 #               show the next/or before song
 # or quit
 
-#del
-#append
 
 speaker = pyttsx3.init() #initialize
 rate = speaker.getProperty('rate')
@@ -139,8 +137,8 @@ def build_tree(elements):
 
 
 def header():
-    title = "         💽 \033[0m\033[01m\033[36mVINYL PLAYER\033[0m 💽         "
-    print("=" *  36) # created a header design
+    title = "         💽 \033[01m\033[36mVINYL PLAYER\033[0m 💽         "
+    print("\033[0m=" *  36) # created a header design
     print(title)
     print("=" * 36)
 
@@ -270,6 +268,8 @@ def listenAgain():
         allTracks()
     elif 'n' in listen:
         # diff feature or quit
+        print("\033[0m\n💤 💤 💤")
+        time.sleep(2)
         exit()
     else:
         speaker.say('That was confusing. Please clarify.')
@@ -313,7 +313,7 @@ def genre():
             speaker.runAndWait()
             continue
 
-        if chooseGenre > 0 and chooseGenre < 8:
+        if chooseGenre > 0 and chooseGenre < 9:
             title = "                    "
             print(title,"%s\033[0m" % arranged[chooseGenre - 1].upper(), title)
             for songtl, songInfo in songs.items():
@@ -347,10 +347,13 @@ def localInt(pref):
 
 
 
-# option of adding a song?     
+# option of adding a song?    
+def main ():
 
-header()
-allTracks()
+    header()
+    allTracks()
+
+main()
 
 
 

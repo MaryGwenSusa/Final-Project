@@ -2,6 +2,7 @@ import time
 import pyttsx3
 from termcolor import cprint
 from python_play.player import play_it
+#from subPlayG1 
 
 def houseEnter():
     trials = 0
@@ -88,7 +89,7 @@ def security():
         justView = False
         while True:
             if errorMenu == False:
-                onSecurity = input("Type Y/N 🤓\033[96m\n").lower()    #reset the input color        
+                onSecurity = input("\033[0mType Y/N 🤓\033[96m\n").lower()    #reset the input color        
             elif errorMenu == True:
                 onSecurity = 'y'
 
@@ -109,8 +110,7 @@ def security():
                     speaker.say('That was confusing. Please clarify.')
                     speaker.runAndWait()
                     time.sleep(1)
-                    errorMenu = True
-                    
+                    errorMenu = True        
                     continue
 
                 if askUser == 1:
@@ -120,7 +120,7 @@ def security():
                     newCode = validPassword()
                     try:
                         doorCd["Front Door"] = newCode
-                    except TypeError:
+                    except TypeError or ValueError:
                         speaker.say('There seems to be a problem on my system. I apologize. Please try again.')
                         speaker.runAndWait()
                         newCode = validPassword()
@@ -133,7 +133,7 @@ def security():
                     newCode = validPassword()
                     try: 
                         doorCd["Front Door"] = newCode
-                    except TypeError:
+                    except TypeError or ValueError:
                         speaker.say('There seems to be a problem on my system. I apologize. Please try again.')
                         speaker.runAndWait()
                         newCode = validPassword()
@@ -147,7 +147,7 @@ def security():
                     newCode = validPassword()
                     try: 
                         doorCd["Front Door"] = newCode
-                    except TypeError:
+                    except TypeError or ValueError:
                         speaker.say('There seems to be a problem on my system. I apologize. Please try again.')
                         speaker.runAndWait()
                         newCode = validPassword()
@@ -160,7 +160,7 @@ def security():
                     newCode = validPassword()
                     try:
                         doorCd["Back Door"] = newCode
-                    except TypeError:
+                    except TypeError or ValueError:
                         speaker.say('There seems to be a problem on my system. I apologize. Please try again.')
                         speaker.runAndWait()
                         newCode = validPassword()
@@ -189,19 +189,19 @@ def security():
                 print('\n\033[0mRemember your door codes 🚪')
                 for key, value in doorCd.items():
                     print("\033[01m\033[34m{}\033[0m : {}".format(key, str(value)))
-                
+                                    
                 if justView == True:
                     speaker.say('Do you have second thoughts on your current codes?')
                     speaker.runAndWait()
                     time.sleep(1)
                     
-                    doubts = input('Type Y/N\n\033[96m').lower() #reset terminal color
+                    doubts = input('Type Y/N 🤓\n\033[96m').lower() #reset terminal color
 
                     if 'y' in doubts:
                         errorMenu = True
                         continue
                     elif 'n' in doubts:
-                        break
+                        tunes()
                         
                     else:
                         yesNo = ['y', 'n']
@@ -209,10 +209,10 @@ def security():
                             errorMenu = True
                             continue
                                                      
-                break
+                tunes()
         
-                    
-            #elif 'n' in onSecurity:
+            elif 'n' in onSecurity:
+                tunes()
 
             else:
                 speaker.say('That was confusing. Please clarify.')
@@ -261,6 +261,23 @@ def validPassword(): #designn temrinasdasds
             speaker.say('Invalid. Try again.')
             speaker.runAndWait()
             validPassword()
+
+def tunes():
+    while True:
+        speaker.say('Do you want to listen to some tunes?')
+        speaker.runAndWait()
+        tunes = input('\033[0m\nType Y/N 🤓\n\033[96m').lower()
+        if 'y' in tunes:
+            from subPlayG1 import main
+            main()
+        if 'n' in tunes:
+            print("\033[0m\n💤 💤 💤")
+            time.sleep(2)
+            exit()
+        else:
+            speaker.say('That was confusing. Please clarify.')
+            speaker.runAndWait()
+            continue
 
 
 # Driver program
